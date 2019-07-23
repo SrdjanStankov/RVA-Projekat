@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +25,18 @@ namespace Client
 		public MainWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void ButtonLogin_Click(object sender, RoutedEventArgs e)
+		{
+			var proxy = new ChannelFactory<IConnection>(new NetTcpBinding(), $"net.tcp://localhost:{11223}").CreateChannel();
+			proxy.Login(new User("a", "b", "c"));
+		}
+
+		private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+		{
+			var proxy = new ChannelFactory<IConnection>(new NetTcpBinding(), $"net.tcp://localhost:{11223}").CreateChannel();
+			proxy.Logout(new User("a", "b", "c"));
 		}
 	}
 }
