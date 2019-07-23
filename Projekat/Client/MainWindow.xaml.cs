@@ -30,13 +30,13 @@ namespace Client
 		private void ButtonLogin_Click(object sender, RoutedEventArgs e)
 		{
 			var proxy = new ChannelFactory<IConnection>(new NetTcpBinding(), $"net.tcp://localhost:{11223}").CreateChannel();
-			proxy.Login(new User("a", "b", "c"));
+			proxy.Login(new RegularUser("a", "b", "c"));
 		}
 
 		private void ButtonLogout_Click(object sender, RoutedEventArgs e)
 		{
 			var proxy = new ChannelFactory<IConnection>(new NetTcpBinding(), $"net.tcp://localhost:{11223}").CreateChannel();
-			proxy.Logout(new User("a", "b", "c"));
+			proxy.Logout(new RegularUser("a", "b", "c"));
 		}
 	}
 }

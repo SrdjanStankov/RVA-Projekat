@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Common
 {
 	[Serializable]
-	public class User
+	[KnownType(typeof(RegularUser))]
+	[KnownType(typeof(Administrator))]
+	public abstract class User
 	{
 		public User(string name, string lastname, string username)
 		{
