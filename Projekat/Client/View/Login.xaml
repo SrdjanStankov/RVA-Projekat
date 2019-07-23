@@ -10,13 +10,42 @@
     mc:Ignorable="d">
     <Grid>
         <TextBox
-            x:Name="textBox"
-            Width="181"
-            Height="79"
-            Margin="129,98,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="TextBox"
+            x:Name="usernameBox"
+            Width="259"
+            Height="32"
+            Margin="0,0,0,90"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text=""
             TextWrapping="Wrap" />
+        <PasswordBox
+            x:Name="passwordBox"
+            Width="259"
+            Height="30"
+            Margin="0,40,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+        <Label
+            x:Name="usernameLabel"
+            Width="259"
+            Margin="0,0,0,160"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="Username" />
+        <Label
+            x:Name="passwordLabel"
+            Width="259"
+            Margin="0,0,0,20"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="Password" />
+        <Button
+            x:Name="loginBtn"
+            Width="100"
+            Height="40"
+            Margin="0,140,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="Login" />
     </Grid>
 </UserControl>
