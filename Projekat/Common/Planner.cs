@@ -4,6 +4,8 @@ namespace Common
 {
 	public class Planner
 	{
-		List<Event> events = new List<Event>();
+		public int Id { get; set; }
+
+		public List<Event> Events { get; set; }
 	}
 }

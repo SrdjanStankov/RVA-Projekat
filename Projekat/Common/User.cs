@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Common
@@ -19,6 +20,9 @@ namespace Common
 
 		public string Lastname { get; set; }
 
+		[Key]
 		public string Username { get; set; }
+
+		public virtual Planner Planner { get; set; }
 	}
 }
