@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 
 namespace Server
@@ -10,7 +11,20 @@ namespace Server
 		public Server(int port, Type serverType, Type interfaceType)
 		{
 			host = new ServiceHost(serverType);
-			host.AddServiceEndpoint(interfaceType, new NetTcpBinding(), $"net.tcp://localhost:{port}");
+
+			var userNameBinding = new NetTcpBinding();
+			userNameBinding.Security.Mode = SecurityMode.TransportWithMessageCredential;
+			userNameBinding.Security.Message.ClientCredentialType = MessageCredentialType.UserName;
+			//userNameBinding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
+
+			host.AddServiceEndpoint(interfaceType, userNameBinding, $"net.tcp://localhost:{port}");
+
+			host.Credentials.ServiceCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySubjectName, "localhost");
+
+			host.Credentials.ClientCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
+
+			host.Credentials.UserNameAuthentication.UserNamePasswordValidationMode = System.ServiceModel.Security.UserNamePasswordValidationMode.Custom;
+			host.Credentials.UserNameAuthentication.CustomUserNamePasswordValidator = new ServiceAuthenticator();
 		}
 
 		public bool Open()

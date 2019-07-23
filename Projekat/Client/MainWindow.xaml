@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Client"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:Client.ViewModel"
+    xmlns:views="clr-namespace:Client.View"
     Title="MainWindow"
     Width="800"
     Height="450"
@@ -26,6 +28,7 @@
             Margin="406,157,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Logout" Click="ButtonLogout_Click" />
+            Click="ButtonLogout_Click"
+            Content="Logout" />
     </Grid>
 </Window>

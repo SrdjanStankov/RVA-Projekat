@@ -6,9 +6,9 @@ namespace Common
 	public interface IConnection
 	{
 		[OperationContract]
-		void Login(User user);
+		void Login(string userName, string password);
 
 		[OperationContract]
-		void Logout(User user);
+		void Logout(string userName);
 	}
 }
