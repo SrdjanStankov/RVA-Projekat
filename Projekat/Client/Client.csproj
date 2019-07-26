@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ConnectionCallback.cs" />
     <Compile Include="Model\Command.cs" />
     <Compile Include="Model\LoginUser.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />

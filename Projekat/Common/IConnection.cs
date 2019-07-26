@@ -2,13 +2,16 @@
 
 namespace Common
 {
-	[ServiceContract]
+	[ServiceContract(CallbackContract = typeof(IConnectionCallback), SessionMode = SessionMode.Required)]
 	public interface IConnection
 	{
 		[OperationContract]
-		void Login(string userName, string password);
+		int Login(string userName, string password);
 
 		[OperationContract]
-		void Logout(string userName);
+		void Change(string userName, string password);
+
+		[OperationContract]
+		int Logout(string userName);
 	}
 }

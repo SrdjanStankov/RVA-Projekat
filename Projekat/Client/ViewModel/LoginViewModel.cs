@@ -11,6 +11,7 @@ namespace Client.ViewModel
 	public class LoginViewModel : BindableBase
 	{
 		private LoginUser user;
+		private ConnectionCallback connectionCallback;
 
 		public Command<object> LoginCommand { get; set; }
 
@@ -26,6 +27,7 @@ namespace Client.ViewModel
 		public LoginViewModel()
 		{
 			User = new LoginUser();
+			connectionCallback = new ConnectionCallback();
 
 			LoginCommand = new Command<object>(OnLogin);
 		}
@@ -44,7 +46,7 @@ namespace Client.ViewModel
 			binding.Security.Mode = SecurityMode.TransportWithMessageCredential;
 			binding.Security.Message.ClientCredentialType = MessageCredentialType.UserName;
 
-			var factory = new ChannelFactory<IConnection>(binding, $"net.tcp://localhost:{11223}");
+			var factory = new DuplexChannelFactory<IConnection>(connectionCallback, binding, $"net.tcp://localhost:{11223}");
 			factory.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySubjectName, "localhost");
 			factory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
 			factory.Credentials.UserName.UserName = User.Username;
