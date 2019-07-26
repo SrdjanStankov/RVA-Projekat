@@ -1,5 +1,5 @@
-﻿using System;
-using System.IdentityModel.Selectors;
+﻿using System.IdentityModel.Selectors;
+using System.ServiceModel;
 
 namespace Server
 {
@@ -9,12 +9,12 @@ namespace Server
 		{
 			if (string.IsNullOrEmpty(userName) || string.IsNullOrWhiteSpace(userName))
 			{
-				throw new ArgumentException("userName invalid");
+				throw new FaultException("Username is invalid");
 			}
 
 			if (string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password))
 			{
-				throw new ArgumentException("password invalid");
+				throw new FaultException("Password is invalid");
 			}
 
 			using (var ctx = new ModelContext())
@@ -22,12 +22,12 @@ namespace Server
 				var user = ctx.GetUser(userName);
 				if (user == null)
 				{
-					throw new ArgumentException("userName not found");
+					throw new FaultException("Username not found");
 				}
 
 				if (user.Password != password)
 				{
-					throw new ArgumentException("password does not mach userName");
+					throw new FaultException("Password does not match username");
 				}
 			}
 		}

@@ -1,14 +1,15 @@
 ﻿using Common;
 using System;
-using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace Server
 {
+	[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
 	public class Connection : IConnection
 	{
 		public void Login(string userName, string password)
 		{
-			Console.WriteLine("login");
+			Console.WriteLine($"login");
 		}
 
 		public void Logout(string userName)

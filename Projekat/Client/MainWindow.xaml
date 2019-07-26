@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Client"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:Client.ViewModel"
     xmlns:views="clr-namespace:Client.View"
@@ -11,24 +10,18 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
+
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+            <views:Login />
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
-        <Button
-            x:Name="buttonLogin"
-            Width="128"
-            Height="47"
-            Margin="249,157,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="ButtonLogin_Click"
-            Content="Login" />
-        <Button
-            x:Name="buttonLogout"
-            Width="128"
-            Height="47"
-            Margin="406,157,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="ButtonLogout_Click"
-            Content="Logout" />
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

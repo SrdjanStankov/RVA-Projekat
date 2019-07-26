@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Client.Model
+namespace Common
 {
 	public class BindableBase : INotifyPropertyChanged
 	{

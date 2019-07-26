@@ -1,9 +1,8 @@
 namespace Server
 {
-    using Common;
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
+	using Common;
+	using System.Collections.Generic;
+	using System.Data.Entity;
 	using System.Linq;
 
 	public class ModelContext : DbContext

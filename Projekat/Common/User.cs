@@ -7,9 +7,15 @@ namespace Common
 	[Serializable]
 	[KnownType(typeof(RegularUser))]
 	[KnownType(typeof(Administrator))]
-	public abstract class User
+	public abstract class User : ValidationBase
 	{
-		public User(string name, string lastname, string username)
+		private string name;
+		private string lastname;
+		private string username;
+		private string password;
+		private Planner planner;
+
+		public User(string name, string lastname, string username) : base()
 		{
 			Name = name;
 			Lastname = lastname;
@@ -20,15 +26,77 @@ namespace Common
 		{
 		}
 
-		public string Name { get; set; }
+		#region Properties
 
-		public string Lastname { get; set; }
+		public string Name
+		{
+			get => name; set
+			{
+				name = value;
+				OnPropertyChanged("Name");
+			}
+		}
+
+		public string Lastname
+		{
+			get => lastname; set
+			{
+				lastname = value;
+				OnPropertyChanged("Lastname");
+			}
+		}
 
 		[Key]
-		public string Username { get; set; }
+		public string Username
+		{
+			get => username; set
+			{
+				username = value;
+				OnPropertyChanged("Username");
+			}
+		}
 
-		public string Password { get; set; }
+		public string Password
+		{
+			get => password; set
+			{
+				password = value;
+				OnPropertyChanged("Password");
+			}
+		}
 
-		public virtual Planner Planner { get; set; }
+		public virtual Planner Planner
+		{
+			get => planner; set
+			{
+				planner = value;
+				OnPropertyChanged("Planner");
+			}
+		}
+
+		#endregion
+
+		protected override void ValidateSelf()
+		{
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				ValidationErrors["Name"] = "Required";
+			}
+
+			if (string.IsNullOrWhiteSpace(lastname))
+			{
+				ValidationErrors["Lastname"] = "Required";
+			}
+
+			if (string.IsNullOrWhiteSpace(username))
+			{
+				ValidationErrors["Username"] = "Required";
+			}
+
+			if (string.IsNullOrWhiteSpace(password))
+			{
+				ValidationErrors["Password"] = "Required";
+			}
+		}
 	}
 }
