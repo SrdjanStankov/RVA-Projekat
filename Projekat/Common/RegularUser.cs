@@ -9,7 +9,7 @@ namespace Common
 		{
 		}
 
-		public RegularUser(string name, string lastname, string username) : base(name, lastname, username)
+		public RegularUser(string name, string lastname, string username, string password, Planner planner) : base(name, lastname, username, password, planner)
 		{
 		}
 	}

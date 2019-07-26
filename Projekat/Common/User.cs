@@ -15,11 +15,13 @@ namespace Common
 		private string password;
 		private Planner planner;
 
-		public User(string name, string lastname, string username) : base()
+		public User(string name, string lastname, string username, string password, Planner planner)
 		{
 			Name = name;
 			Lastname = lastname;
 			Username = username;
+			Password = password;
+			Planner = planner;
 		}
 
 		protected User()
