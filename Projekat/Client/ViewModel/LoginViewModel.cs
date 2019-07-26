@@ -4,12 +4,13 @@ using System;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
-using System.Windows;
 
 namespace Client.ViewModel
 {
 	public class LoginViewModel : BindableBase
 	{
+		public static IConnection proxy;
+
 		private LoginUser user;
 		private ConnectionCallback connectionCallback;
 
@@ -52,10 +53,10 @@ namespace Client.ViewModel
 			factory.Credentials.UserName.UserName = User.Username;
 			factory.Credentials.UserName.Password = User.Password;
 
-			var proxy = factory.CreateChannel();
+			proxy = factory.CreateChannel();
 			try
 			{
-				proxy.Login("pera", "pera");
+				proxy.Login(User.Username, User.Password);
 			}
 			catch (Exception e)
 			{

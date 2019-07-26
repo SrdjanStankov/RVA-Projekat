@@ -14,7 +14,7 @@ namespace Client.Model
 
 		public void NotifyLogin(string username)
 		{
-			MessageBox.Show("Login");
+			MessageBox.Show("Login" , username);
 		}
 
 		public void NotifyLogout(string username)

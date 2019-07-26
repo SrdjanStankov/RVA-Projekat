@@ -8,7 +8,7 @@ namespace Server
 	[ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.PerSession)]
 	public class Connection : IConnection
 	{
-		private static List<IConnectionCallback> callbackList = new List<IConnectionCallback>();
+		private static Dictionary<string, IConnectionCallback> callbackList = new Dictionary<string, IConnectionCallback>();
 		private int registeredUsers;
 
 		public Connection()
@@ -19,17 +19,19 @@ namespace Server
 		{
 			var registeredUser = OperationContext.Current.GetCallbackChannel<IConnectionCallback>();
 
-			if (!callbackList.Contains(registeredUser))
+			if (!callbackList.ContainsKey(userName/*registeredUser*/))
 			{
-				callbackList.Add(registeredUser);
+				callbackList.Add(userName, registeredUser);
 			}
 
-			callbackList.ForEach(
-				delegate (IConnectionCallback callback)
-				{
-					callback.NotifyLogin(userName);
-					registeredUsers++;
-				});
+			//callbackList[userName].NotifyLogin(userName);
+			
+			//callbackList.ForEach(
+			//	delegate (IConnectionCallback callback)
+			//	{
+			//		callback.NotifyLogin(userName);
+			//		registeredUsers++;
+			//	});
 
 			Console.WriteLine($"login");
 			return registeredUsers;
@@ -37,26 +39,32 @@ namespace Server
 
 		public void Change(string userName, string password)
 		{
-			callbackList.ForEach(
-				delegate (IConnectionCallback callback)
-				{ callback.NotifyChange(userName); });
+			callbackList[userName].NotifyChange(userName);
+
+			foreach (var item in callbackList)
+			{
+				item.Value.NotifyChange(userName);
+			}
+
+			Console.WriteLine($"Change");
+
+			//callbackList.ForEach(
+			//	delegate (IConnectionCallback callback)
+			//	{ callback.NotifyChange(userName); });
 		}
 
 		public int Logout(string userName)
 		{
 			var registeredUser = OperationContext.Current.GetCallbackChannel<IConnectionCallback>();
 
-			if (callbackList.Contains(registeredUser))
+			if (callbackList.ContainsKey(userName/* registeredUser*/))
 			{
-				callbackList.Remove(registeredUser);
-				registeredUsers--;
+				callbackList.Remove(userName/*registeredUser*/);
 			}
 
-			// Notify everyone that user has arrived.
-			// Use an anonymous delegate and generics to do our dirty work.
-			callbackList.ForEach(
-				delegate (IConnectionCallback callback)
-				{ callback.NotifyLogout(userName); });
+			//callbackList.ForEach(
+			//	delegate (IConnectionCallback callback)
+			//	{ callback.NotifyLogout(userName); });
 
 			Console.WriteLine("logout");
 			return registeredUsers;
