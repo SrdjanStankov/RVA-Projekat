@@ -26,6 +26,7 @@
                 Margin="0,0,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                AutoWordSelection="True"
                 Text="{Binding User.Username}"
                 TextWrapping="Wrap" />
             <TextBlock
@@ -59,7 +60,8 @@
                 VerticalAlignment="Center"
                 Command="{Binding LoginCommand}"
                 CommandParameter="{Binding ElementName=passwordBox}"
-                Content="Login" />
+                Content="Login"
+                IsDefault="True" />
         </StackPanel>
     </Grid>
 </UserControl>
