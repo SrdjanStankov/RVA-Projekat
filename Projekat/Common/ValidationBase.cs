@@ -2,6 +2,7 @@
 
 namespace Common
 {
+	[System.Serializable]
 	public abstract class ValidationBase : BindableBase
 	{
 		[NotMapped]

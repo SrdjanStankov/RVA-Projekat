@@ -10,6 +10,7 @@ namespace Client.ViewModel
 	public class LoginViewModel : BindableBase
 	{
 		public static IConnection proxy;
+		public static DuplexChannelFactory<IConnection> factory;
 
 		private LoginUser user;
 		private ConnectionCallback connectionCallback;
@@ -47,7 +48,7 @@ namespace Client.ViewModel
 			binding.Security.Mode = SecurityMode.TransportWithMessageCredential;
 			binding.Security.Message.ClientCredentialType = MessageCredentialType.UserName;
 
-			var factory = new DuplexChannelFactory<IConnection>(connectionCallback, binding, $"net.tcp://localhost:{11223}");
+			factory = new DuplexChannelFactory<IConnection>(connectionCallback, binding, $"net.tcp://localhost:{11223}");
 			factory.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySubjectName, "localhost");
 			factory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
 			factory.Credentials.UserName.UserName = User.Username;
@@ -57,6 +58,7 @@ namespace Client.ViewModel
 			try
 			{
 				proxy.Login(User.Username, User.Password);
+				//MainWindowViewModel.Instance.ShowDashboard();
 			}
 			catch (Exception e)
 			{

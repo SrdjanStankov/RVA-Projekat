@@ -16,9 +16,15 @@
     </Window.DataContext>
 
     <Window.Resources>
+
         <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
             <views:Login />
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:DashboardViewModel}">
+            <views:Dashboard />
+        </DataTemplate>
+
     </Window.Resources>
 
     <Grid>

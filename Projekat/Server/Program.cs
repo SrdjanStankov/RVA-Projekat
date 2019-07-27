@@ -10,7 +10,7 @@ namespace Server
 		static void Main(string[] args)
 		{
 			server.Open();
-			Console.ReadKey();
+			Console.ReadKey(true);
 			server.Close();
 		}
 	}

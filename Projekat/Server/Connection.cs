@@ -9,7 +9,9 @@ namespace Server
 	public class Connection : IConnection
 	{
 		private static Dictionary<string, IConnectionCallback> callbackList = new Dictionary<string, IConnectionCallback>();
+#pragma warning disable 649
 		private int registeredUsers;
+#pragma warning restore 649
 
 		public Connection()
 		{
@@ -68,6 +70,19 @@ namespace Server
 
 			Console.WriteLine("logout");
 			return registeredUsers;
+		}
+
+		public void ChangeUserData(User newUser)
+		{
+			Console.WriteLine("Changing User Data");
+		}
+
+		public User GetUser(string userName)
+		{
+			using (var ctx = new ModelContext())
+			{
+				return ctx.GetUser(userName);
+			}
 		}
 	}
 }

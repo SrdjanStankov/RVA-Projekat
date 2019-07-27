@@ -13,5 +13,11 @@ namespace Common
 
 		[OperationContract]
 		int Logout(string userName);
+
+		[OperationContract]
+		void ChangeUserData(User newUser);
+
+		[OperationContract]
+		User GetUser(string userName);
 	}
 }
