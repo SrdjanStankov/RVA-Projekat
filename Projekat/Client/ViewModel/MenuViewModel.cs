@@ -11,7 +11,7 @@ namespace Client.ViewModel
 
 		public MenuViewModel()
 		{
-			DashboardCommand = new Command(() => System.Console.WriteLine());
+			DashboardCommand = new Command(() => ChangingViewEvents.Instance.RaiseDashboardEvent());
 			LogoutCommand = new Command(() => System.Console.WriteLine());
 		}
 	}
