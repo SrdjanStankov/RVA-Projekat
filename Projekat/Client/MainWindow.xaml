@@ -25,9 +25,16 @@
             <views:Dashboard />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:MenuViewModel}">
+            <views:MenuView />
+        </DataTemplate>
+
     </Window.Resources>
 
     <Grid>
+        <DockPanel>
+            <ContentControl Content="{Binding MenuViewModel}" />
+        </DockPanel>
         <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

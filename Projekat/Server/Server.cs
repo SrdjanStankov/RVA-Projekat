@@ -15,7 +15,6 @@ namespace Server
 			var userNameBinding = new NetTcpBinding();
 			userNameBinding.Security.Mode = SecurityMode.TransportWithMessageCredential;
 			userNameBinding.Security.Message.ClientCredentialType = MessageCredentialType.UserName;
-			//userNameBinding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
 			host.AddServiceEndpoint(interfaceType, userNameBinding, $"net.tcp://localhost:{port}");
 
@@ -32,7 +31,7 @@ namespace Server
 			try
 			{
 				host.Open();
-				Console.WriteLine($"Server {host.Description.ServiceType} opened...");
+				Console.WriteLine($"Server {host.Description.ServiceType.Name} opened...");
 				return true;
 			}
 			catch (Exception)
@@ -47,7 +46,7 @@ namespace Server
 			try
 			{
 				host.Close();
-				Console.WriteLine($"Server {host.Description.ServiceType} closed...");
+				Console.WriteLine($"Server {host.Description.ServiceType.Name} closed...");
 				return true;
 			}
 			catch (Exception)

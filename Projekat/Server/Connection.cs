@@ -9,15 +9,12 @@ namespace Server
 	public class Connection : IConnection
 	{
 		private static Dictionary<string, IConnectionCallback> callbackList = new Dictionary<string, IConnectionCallback>();
-#pragma warning disable 649
-		private int registeredUsers;
-#pragma warning restore 649
 
 		public Connection()
 		{
 		}
 
-		public int Login(string userName, string password)
+		public void Login(string userName, string password)
 		{
 			var registeredUser = OperationContext.Current.GetCallbackChannel<IConnectionCallback>();
 
@@ -27,7 +24,7 @@ namespace Server
 			}
 
 			//callbackList[userName].NotifyLogin(userName);
-			
+
 			//callbackList.ForEach(
 			//	delegate (IConnectionCallback callback)
 			//	{
@@ -35,8 +32,7 @@ namespace Server
 			//		registeredUsers++;
 			//	});
 
-			Console.WriteLine($"login");
-			return registeredUsers;
+			Console.WriteLine($"Login: {userName}");
 		}
 
 		public void Change(string userName, string password)
@@ -55,10 +51,8 @@ namespace Server
 			//	{ callback.NotifyChange(userName); });
 		}
 
-		public int Logout(string userName)
+		public void Logout(string userName)
 		{
-			var registeredUser = OperationContext.Current.GetCallbackChannel<IConnectionCallback>();
-
 			if (callbackList.ContainsKey(userName/* registeredUser*/))
 			{
 				callbackList.Remove(userName/*registeredUser*/);
@@ -68,21 +62,37 @@ namespace Server
 			//	delegate (IConnectionCallback callback)
 			//	{ callback.NotifyLogout(userName); });
 
-			Console.WriteLine("logout");
-			return registeredUsers;
+			Console.WriteLine($"Logout: {userName}");
 		}
 
 		public void ChangeUserData(User newUser)
 		{
-			Console.WriteLine("Changing User Data");
-		}
-
-		public User GetUser(string userName)
-		{
+			Console.WriteLine($"Changing user data: {newUser.Username}");
 			using (var ctx = new ModelContext())
 			{
-				return ctx.GetUser(userName);
+				ctx.ChangeUser(newUser);
 			}
+		}
+
+		public User GetUser(string username)
+		{
+			Console.WriteLine($"Get user: {username}");
+			using (var ctx = new ModelContext())
+			{
+				var u = ctx.GetUser(username);
+				if (u is Administrator)
+				{
+					var administrator = new Administrator(u.Name, u.Lastname, u.Username, u.Password, u.Planner);
+					return administrator;
+				}
+				if (u is RegularUser)
+				{
+					var regularUser = new RegularUser(u.Name, u.Lastname, u.Username, u.Password, u.Planner);
+					return regularUser;
+				}
+			}
+
+			return null;
 		}
 	}
 }

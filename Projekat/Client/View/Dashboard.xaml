@@ -10,17 +10,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <DockPanel>
-            <Menu
-                Grid.Row="0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                DockPanel.Dock="Top">
-                <MenuItem Command="{Binding DashboardCommand}" Header="Dashboard" />
-                <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
-            </Menu>
-        </DockPanel>
-
         <StackPanel
             Grid.Row="1"
             HorizontalAlignment="Center"
@@ -37,7 +26,7 @@
                 Width="259"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="" />
+                Text="{Binding User.Name}" />
             <TextBlock
                 FontSize="16"
                 Foreground="Red"
@@ -53,26 +42,11 @@
                 Width="259"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="" />
+                Text="{Binding User.Lastname}" />
             <TextBlock
                 FontSize="16"
                 Foreground="Red"
                 Text="{Binding User.ValidationErrors[Lastname]}" />
-            <Label
-                x:Name="PasswordLabel"
-                Width="259"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Content="Password" />
-            <PasswordBox
-                x:Name="PasswordBox"
-                Width="259"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
-            <TextBlock
-                FontSize="16"
-                Foreground="Red"
-                Text="{Binding User.ValidationErrors[Password]}" />
             <Button
                 x:Name="SaveBtn"
                 Width="100"

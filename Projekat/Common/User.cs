@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 namespace Common
 {
 	[Serializable]
+	[DataContract]
 	[KnownType(typeof(RegularUser))]
 	[KnownType(typeof(Administrator))]
 	public abstract class User : ValidationBase
@@ -30,6 +31,7 @@ namespace Common
 
 		#region Properties
 
+		[DataMember]
 		public string Name
 		{
 			get => name; set
@@ -39,6 +41,7 @@ namespace Common
 			}
 		}
 
+		[DataMember]
 		public string Lastname
 		{
 			get => lastname; set
@@ -49,6 +52,7 @@ namespace Common
 		}
 
 		[Key]
+		[DataMember]
 		public string Username
 		{
 			get => username; set
@@ -58,6 +62,7 @@ namespace Common
 			}
 		}
 
+		[DataMember]
 		public string Password
 		{
 			get => password; set
@@ -67,6 +72,7 @@ namespace Common
 			}
 		}
 
+		[DataMember]
 		public virtual Planner Planner
 		{
 			get => planner; set
@@ -80,22 +86,22 @@ namespace Common
 
 		protected override void ValidateSelf()
 		{
-			if (string.IsNullOrWhiteSpace(name))
+			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name))
 			{
 				ValidationErrors["Name"] = "Required";
 			}
 
-			if (string.IsNullOrWhiteSpace(lastname))
+			if (string.IsNullOrWhiteSpace(lastname) || string.IsNullOrEmpty(lastname))
 			{
 				ValidationErrors["Lastname"] = "Required";
 			}
 
-			if (string.IsNullOrWhiteSpace(username))
+			if (string.IsNullOrWhiteSpace(username) || string.IsNullOrEmpty(username))
 			{
 				ValidationErrors["Username"] = "Required";
 			}
 
-			if (string.IsNullOrWhiteSpace(password))
+			if (string.IsNullOrWhiteSpace(password) || string.IsNullOrEmpty(password))
 			{
 				ValidationErrors["Password"] = "Required";
 			}

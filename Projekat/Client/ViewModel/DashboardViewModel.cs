@@ -11,7 +11,8 @@ namespace Client.ViewModel
 
 		public User User
 		{
-			get => user; set
+			get => user;
+			set
 			{
 				user = value;
 				OnPropertyChanged("User");
@@ -21,14 +22,18 @@ namespace Client.ViewModel
 		public DashboardViewModel()
 		{
 			SaveCommand = new Command<object>(OnSave);
+			ChangingViewEvents.Instance.UserLoginSuccessful += SetupUser;
+		}
 
-
-			//User = LoginViewModel.proxy.GetUser(LoginViewModel.factory.Credentials.UserName.UserName);
+		private void SetupUser(object sender, System.EventArgs e)
+		{
+			string username = LoginViewModel.factory.Credentials.UserName.UserName;
+			User = LoginViewModel.proxy.GetUser(username);
+			OnPropertyChanged("User");
 		}
 
 		private void OnSave(object obj)
 		{
-			User.Password = (obj as System.Windows.Controls.PasswordBox).Password;
 			User.Validate();
 			if (!User.IsValid)
 			{

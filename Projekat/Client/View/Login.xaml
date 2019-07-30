@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    FocusManager.FocusedElement="{Binding ElementName=usernameBox}"
     mc:Ignorable="d">
     <Grid>
         <StackPanel

@@ -1,6 +1,9 @@
-﻿namespace Common
+﻿using System.Runtime.Serialization;
+
+namespace Common
 {
 	[System.Serializable]
+	[DataContract]
 	public class Administrator : User
 	{
 		public Administrator() : base() { }

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Common
 {
 	[Serializable]
+	[DataContract]
 	public class RegularUser : User
 	{
 		public RegularUser()

@@ -1,4 +1,5 @@
 using Common;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -75,6 +76,13 @@ namespace Server
 		public void RemoveUser(User user)
 		{
 			Users.Remove(user);
+			SaveChanges();
+		}
+
+		public void ChangeUser(User newUser)
+		{
+			var oldUser = Users.Include(u => u.Planner).FirstOrDefault(i => i.Username == newUser.Username);
+			Entry(oldUser).CurrentValues.SetValues(newUser);
 			SaveChanges();
 		}
 

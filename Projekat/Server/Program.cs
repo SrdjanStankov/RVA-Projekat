@@ -3,11 +3,11 @@ using System;
 
 namespace Server
 {
-	class Program
+	internal class Program
 	{
-		static Server server = new Server(11223, typeof(Connection), typeof(IConnection));
+		private static Server server = new Server(11223, typeof(Connection), typeof(IConnection));
 
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			server.Open();
 			Console.ReadKey(true);

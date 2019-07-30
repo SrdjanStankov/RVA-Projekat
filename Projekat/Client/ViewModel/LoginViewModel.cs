@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using System.Windows;
 
 namespace Client.ViewModel
 {
@@ -34,7 +35,6 @@ namespace Client.ViewModel
 			LoginCommand = new Command<object>(OnLogin);
 		}
 
-
 		private void OnLogin(object param)
 		{
 			User.Password = (param as System.Windows.Controls.PasswordBox).Password;
@@ -55,14 +55,26 @@ namespace Client.ViewModel
 			factory.Credentials.UserName.Password = User.Password;
 
 			proxy = factory.CreateChannel();
+
+
 			try
 			{
 				proxy.Login(User.Username, User.Password);
-				//MainWindowViewModel.Instance.ShowDashboard();
+				ChangingViewEvents.Instance.RaiseUserLoginSuccessful();
+				ChangingViewEvents.Instance.RaiseDashboardEvent();
+				ChangingViewEvents.Instance.RaiseMenuEvent();
 			}
 			catch (Exception e)
 			{
-				User.ValidationErrors[e.InnerException.Message.Split(' ').First()] = e.InnerException.Message;
+				if (e.InnerException != null)
+				{
+					User.ValidationErrors[e.InnerException.Message.Split(' ').First()] = e.InnerException.Message;
+				}
+				else
+				{
+					MessageBox.Show(factory.State.ToString(), "State");
+					MessageBox.Show(e.Message);
+				}
 				OnPropertyChanged("User");
 			}
 		}

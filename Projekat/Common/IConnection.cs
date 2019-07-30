@@ -6,18 +6,18 @@ namespace Common
 	public interface IConnection
 	{
 		[OperationContract]
-		int Login(string userName, string password);
+		void Login(string userName, string password);
 
 		[OperationContract]
 		void Change(string userName, string password);
 
 		[OperationContract]
-		int Logout(string userName);
+		void Logout(string userName);
 
 		[OperationContract]
 		void ChangeUserData(User newUser);
 
 		[OperationContract]
-		User GetUser(string userName);
+		User GetUser(string username);
 	}
 }

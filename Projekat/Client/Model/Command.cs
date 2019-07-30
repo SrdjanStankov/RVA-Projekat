@@ -7,8 +7,8 @@ namespace Client.Model
 	{
 		public event EventHandler CanExecuteChanged = delegate { };
 
-		Action _TargetExecuteMethod;
-		Func<bool> _TargetCanExecuteMethod;
+		private Action _TargetExecuteMethod;
+		private Func<bool> _TargetCanExecuteMethod;
 
 		public Command(Action executeMethod)
 		{
@@ -24,17 +24,7 @@ namespace Client.Model
 
 		public bool CanExecute(object parameter)
 		{
-			if (_TargetCanExecuteMethod != null)
-			{
-				return _TargetCanExecuteMethod();
-			}
-
-			if (_TargetExecuteMethod != null)
-			{
-				return true;
-			}
-
-			return false;
+			return _TargetCanExecuteMethod != null ? _TargetCanExecuteMethod() : _TargetExecuteMethod != null;
 		}
 
 		public void Execute(object parameter)
@@ -53,8 +43,8 @@ namespace Client.Model
 
 	public class Command<T> : ICommand
 	{
-		Action<T> _TargetExecuteMethod;
-		Func<T, bool> _TargetCanExecuteMethod;
+		private Action<T> _TargetExecuteMethod;
+		private Func<T, bool> _TargetCanExecuteMethod;
 
 		public Command(Action<T> executeMethod)
 		{
@@ -73,16 +63,11 @@ namespace Client.Model
 		{
 			if (_TargetCanExecuteMethod != null)
 			{
-				T tparm = (T)parameter;
+				var tparm = (T)parameter;
 				return _TargetCanExecuteMethod(tparm);
 			}
 
-			if (_TargetExecuteMethod != null)
-			{
-				return true;
-			}
-
-			return false;
+			return _TargetExecuteMethod != null;
 		}
 
 		public void Execute(object parameter)
