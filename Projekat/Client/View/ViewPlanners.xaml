@@ -44,7 +44,7 @@
                 ItemsSource="{Binding Planners}"
                 RowHeaderWidth="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Nesto">
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -59,7 +59,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Nesto1">
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Name">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -74,7 +74,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Nesto2">
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Description">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
