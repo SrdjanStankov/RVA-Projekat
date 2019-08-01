@@ -18,6 +18,7 @@ namespace Client.Model
 		public event EventHandler UserLoginSuccessful;
 		public event EventHandler MenuEvent;
 		public event EventHandler LogoutEvent;
+		public event EventHandler PlannersEvent;
 
 		public void RaiseLogoutEvent()
 		{
@@ -32,6 +33,11 @@ namespace Client.Model
 		public void RaiseDashboardEvent()
 		{
 			DashboardEvent?.Invoke(this, EventArgs.Empty);
+		}
+
+		internal void RaisePlannersEvent()
+		{
+			PlannersEvent?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void RaiseAddUserEvent()

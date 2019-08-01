@@ -15,6 +15,7 @@
             VerticalAlignment="Top"
             DockPanel.Dock="Top">
             <MenuItem Command="{Binding DashboardCommand}" Header="Dashboard" />
+            <MenuItem Command="{Binding PlannersCommand}" Header="Planners" />
             <MenuItem Command="{Binding AddUserCommand}" Header="Add User" />
             <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
         </Menu>

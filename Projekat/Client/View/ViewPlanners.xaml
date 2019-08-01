@@ -11,40 +11,76 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <Label
-                    Margin="3,0"
-                    VerticalAlignment="Center"
-                    Content="Pretraga"
-                    FontSize="16" />
+        <Grid
+            Grid.Row="0"
+            Height="60"
+            VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="400" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Label VerticalAlignment="Center" Content="Pretraga" />
                 <TextBox
                     Width="220"
-                    Height="30"
-                    Margin="0,10"
+                    Height="40"
                     VerticalContentAlignment="Center"
-                    FontSize="16"
                     Text="{Binding SearchPlanner.Id}"
                     ToolTip="ID za filtriranje" />
                 <Button
                     Width="70"
-                    Height="30"
-                    Margin="5,10"
+                    Height="40"
                     Command="{Binding SearchCommand}"
-                    Content="Search"
-                    FontSize="16" />
+                    Content="Search" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="AddBtn"
+                    Width="100"
+                    Height="40"
+                    Margin="0,0,55,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding AddPlannerCommand}"
+                    CommandParameter="{Binding ElementName=PasswordBox}"
+                    Content="Add planner"
+                    IsDefault="True" />
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="1">
             <DataGrid
+                Name="Grid"
                 Width="auto"
+                Height="auto"
+                AutoGenerateColumns="False"
+                BorderThickness="0"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserReorderColumns="False"
+                CanUserResizeColumns="False"
+                CanUserResizeRows="False"
+                CanUserSortColumns="False"
                 ItemsSource="{Binding Planners}"
                 RowHeaderWidth="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id">
+                    <DataGridTextColumn
+                        Binding="{Binding Id}"
+                        Header="Id"
+                        IsReadOnly="True">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -59,7 +95,11 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Name">
+
+                    <DataGridTextColumn
+                        Binding="{Binding Name}"
+                        Header="Name"
+                        IsReadOnly="True">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -74,7 +114,12 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Description">
+
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Description}"
+                        Header="Description"
+                        IsReadOnly="True">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -89,8 +134,23 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button
+                                        Command="{Binding Path=DataContext.BtnCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding}"
+                                        Content="Events" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
+
     </Grid>
 </UserControl>

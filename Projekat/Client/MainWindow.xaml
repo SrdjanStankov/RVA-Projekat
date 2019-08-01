@@ -33,6 +33,10 @@
             <views:AddUser />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:PlannersViewModel}">
+            <views:ViewPlanners />
+        </DataTemplate>
+
     </Window.Resources>
 
     <Grid>
