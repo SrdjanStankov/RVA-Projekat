@@ -29,6 +29,10 @@
             <views:MenuView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:AddUserViewModel}">
+            <views:AddUser />
+        </DataTemplate>
+
     </Window.Resources>
 
     <Grid>

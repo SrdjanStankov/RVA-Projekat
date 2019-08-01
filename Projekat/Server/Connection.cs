@@ -94,5 +94,19 @@ namespace Server
 
 			return null;
 		}
+
+		public bool AddUser(User newUser)
+		{
+			Console.WriteLine($"Adding user: {newUser.Username}");
+			using (var ctx = new ModelContext())
+			{
+				if (!ctx.ExistUser(newUser.Username))
+				{
+					ctx.AddUser(newUser);
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

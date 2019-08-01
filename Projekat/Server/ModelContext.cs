@@ -1,5 +1,4 @@
 using Common;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -58,7 +57,6 @@ namespace Server
 
 		public void AddUser(User user)
 		{
-			user.Planner = Planners.Where(p => p.Id == user.Planner.Id).FirstOrDefault();
 			Users.Add(user);
 			SaveChanges();
 		}
@@ -84,6 +82,11 @@ namespace Server
 			var oldUser = Users.Include(u => u.Planner).FirstOrDefault(i => i.Username == newUser.Username);
 			Entry(oldUser).CurrentValues.SetValues(newUser);
 			SaveChanges();
+		}
+
+		public bool ExistUser(string username)
+		{
+			return Users.AsNoTracking().FirstOrDefault(u => u.Username == username) == null ? false : true;
 		}
 
 		#endregion

@@ -19,5 +19,8 @@ namespace Common
 
 		[OperationContract]
 		User GetUser(string username);
+
+		[OperationContract]
+		bool AddUser(User newUser);
 	}
 }

@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    FocusManager.FocusedElement="{Binding ElementName=UsernameBox}"
     mc:Ignorable="d">
     <Grid>
         <StackPanel
@@ -23,7 +24,7 @@
                 Width="259"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="{Binding User.Username}" />
+                Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 FontSize="16"
                 Foreground="Red"
@@ -39,7 +40,7 @@
                 Width="259"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="{Binding User.Name}" />
+                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 FontSize="16"
                 Foreground="Red"
@@ -55,7 +56,7 @@
                 Width="259"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="{Binding User.Lastname}" />
+                Text="{Binding Lastname, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 FontSize="16"
                 Foreground="Red"
@@ -81,7 +82,11 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Content="Role" />
-            <ComboBox SelectedItem="{Binding SelectedRole}">
+            <ComboBox
+                IsReadOnly="True"
+                IsSynchronizedWithCurrentItem="True"
+                SelectedIndex="1"
+                SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}">
                 <ComboBoxItem Content="Administrator" IsSelected="False" />
                 <ComboBoxItem Content="Regular User" IsSelected="True" />
             </ComboBox>

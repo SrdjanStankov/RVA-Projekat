@@ -17,6 +17,12 @@ namespace Client.Model
 		public event EventHandler AddUserEvent;
 		public event EventHandler UserLoginSuccessful;
 		public event EventHandler MenuEvent;
+		public event EventHandler LogoutEvent;
+
+		public void RaiseLogoutEvent()
+		{
+			LogoutEvent?.Invoke(this, EventArgs.Empty);
+		}
 
 		public void RaiseMenuEvent()
 		{

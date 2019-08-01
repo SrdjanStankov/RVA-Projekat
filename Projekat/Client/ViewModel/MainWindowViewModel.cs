@@ -14,6 +14,7 @@ namespace Client.ViewModel
 		private LoginViewModel login = new LoginViewModel();
 		private DashboardViewModel dashboard = new DashboardViewModel();
 		private MenuViewModel menu = new MenuViewModel();
+		private AddUserViewModel addUser = new AddUserViewModel();
 
 		public BindableBase CurrentViewModel
 		{
@@ -37,6 +38,8 @@ namespace Client.ViewModel
 
 			ChangingViewEvents.Instance.DashboardEvent += (sender, e) => CurrentViewModel = dashboard;
 			ChangingViewEvents.Instance.MenuEvent += (sender, e) => MenuViewModel = menu;
+			ChangingViewEvents.Instance.AddUserEvent += (sender, e) => CurrentViewModel = addUser;
+			ChangingViewEvents.Instance.LogoutEvent += (sender, e) => { MenuViewModel = null; LoginCommand.Execute(null); };
 		}
 	}
 }

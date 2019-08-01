@@ -1,6 +1,4 @@
-﻿using Common;
-using System.ServiceModel;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Client
 {
@@ -12,17 +10,6 @@ namespace Client
 		public MainWindow()
 		{
 			InitializeComponent();
-		}
-
-		private void ButtonLogin_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void ButtonLogout_Click(object sender, RoutedEventArgs e)
-		{
-			var proxy = new ChannelFactory<IConnection>(new NetTcpBinding(), $"net.tcp://localhost:{11223}").CreateChannel();
-			proxy.Logout("");
 		}
 	}
 }

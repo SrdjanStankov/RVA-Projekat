@@ -33,6 +33,16 @@ namespace Client.ViewModel
 			connectionCallback = new ConnectionCallback();
 
 			LoginCommand = new Command<object>(OnLogin);
+			ChangingViewEvents.Instance.LogoutEvent += Logout;
+		}
+
+		private void Logout(object sender, EventArgs e)
+		{
+			proxy.Logout(factory.Credentials.UserName.UserName);
+			factory.Close();
+			proxy = null;
+			factory = null;
+			User = new LoginUser();
 		}
 
 		private void OnLogin(object param)

@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Common;
+using System.Linq;
 using System.Windows.Controls;
 
 namespace Client.ViewModel
@@ -9,7 +10,7 @@ namespace Client.ViewModel
 		private User user;
 
 		public Command<object> CreateUserCommand { get; set; }
-		public string SelectedRole { get; set; }
+
 		public User User
 		{
 			get => user;
@@ -20,6 +21,12 @@ namespace Client.ViewModel
 			}
 		}
 
+		public string SelectedRole { get; set; } = "Regular User";
+		public string Username { get; set; }
+		public string Name { get; set; }
+		public string Lastname { get; set; }
+		public string Password { get; set; }
+
 		public AddUserViewModel()
 		{
 			CreateUserCommand = new Command<object>(OnCreate);
@@ -27,7 +34,19 @@ namespace Client.ViewModel
 
 		private void OnCreate(object obj)
 		{
-			User.Password = (obj as PasswordBox).Password;
+			Password = (obj as PasswordBox).Password;
+			switch (SelectedRole.Split(new string[] { ": " }, System.StringSplitOptions.None).LastOrDefault())
+			{
+				case "Administrator":
+					User = new Administrator(Name, Lastname, Username, Password, null);
+					break;
+				case "Regular User":
+					User = new RegularUser(Name, Lastname, Username, Password, null);
+					break;
+				default:
+					return;
+			}
+
 			User.Validate();
 
 			if (!User.IsValid)
@@ -35,13 +54,10 @@ namespace Client.ViewModel
 				return;
 			}
 
-			switch (SelectedRole)
+			if (!LoginViewModel.proxy.AddUser(User))
 			{
-				case "Administrator":
-
-					break;
-				default:
-					break;
+				User.ValidationErrors["Username"] = "Username already exist.";
+				OnPropertyChanged("User");
 			}
 		}
 	}
