@@ -21,7 +21,7 @@ namespace Server
 		{
 			if (Users.AsNoTracking().FirstOrDefault(u => u.Username == "admin") == null)
 			{
-				var admin = new Administrator("admin", "admin", "admin", "admin", null);
+				var admin = new Administrator("admin", "admin", "admin", "admin");
 				Users.Add(admin);
 				SaveChanges();
 			}
@@ -63,12 +63,12 @@ namespace Server
 
 		public User GetUser(string username)
 		{
-			return Users.AsNoTracking().Include(u => u.Planner).Where(u => u.Username == username).FirstOrDefault();
+			return Users.AsNoTracking().Where(u => u.Username == username).FirstOrDefault();
 		}
 
 		public List<User> GetUsers()
 		{
-			return Users.AsNoTracking().Include(u => u.Planner).ToList();
+			return Users.AsNoTracking().ToList();
 		}
 
 		public void RemoveUser(User user)
@@ -79,7 +79,7 @@ namespace Server
 
 		public void ChangeUser(User newUser)
 		{
-			var oldUser = Users.Include(u => u.Planner).FirstOrDefault(i => i.Username == newUser.Username);
+			var oldUser = Users.FirstOrDefault(i => i.Username == newUser.Username);
 			Entry(oldUser).CurrentValues.SetValues(newUser);
 			SaveChanges();
 		}

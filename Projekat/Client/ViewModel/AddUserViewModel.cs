@@ -38,10 +38,10 @@ namespace Client.ViewModel
 			switch (SelectedRole.Split(new string[] { ": " }, System.StringSplitOptions.None).LastOrDefault())
 			{
 				case "Administrator":
-					User = new Administrator(Name, Lastname, Username, Password, null);
+					User = new Administrator(Name, Lastname, Username, Password);
 					break;
 				case "Regular User":
-					User = new RegularUser(Name, Lastname, Username, Password, null);
+					User = new RegularUser(Name, Lastname, Username, Password);
 					break;
 				default:
 					return;

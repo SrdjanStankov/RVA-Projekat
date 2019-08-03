@@ -82,12 +82,12 @@ namespace Server
 				var u = ctx.GetUser(username);
 				if (u is Administrator)
 				{
-					var administrator = new Administrator(u.Name, u.Lastname, u.Username, u.Password, u.Planner);
+					var administrator = new Administrator(u.Name, u.Lastname, u.Username, u.Password);
 					return administrator;
 				}
 				if (u is RegularUser)
 				{
-					var regularUser = new RegularUser(u.Name, u.Lastname, u.Username, u.Password, u.Planner);
+					var regularUser = new RegularUser(u.Name, u.Lastname, u.Username, u.Password);
 					return regularUser;
 				}
 			}
@@ -107,6 +107,24 @@ namespace Server
 				}
 			}
 			return false;
+		}
+
+		public void AddPlanner(Planner planner)
+		{
+			Console.WriteLine($"Adding planner:{planner.Name}");
+			using (var ctx = new ModelContext())
+			{
+				ctx.AddPlanner(planner);
+			}
+		}
+
+		public List<Planner> GetPlanners()
+		{
+			Console.WriteLine($"Getting planners");
+			using (var ctx = new ModelContext())
+			{
+				return ctx.GetPlanners();
+			}
 		}
 	}
 }

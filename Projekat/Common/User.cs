@@ -14,15 +14,13 @@ namespace Common
 		private string lastname;
 		private string username;
 		private string password;
-		private Planner planner;
 
-		public User(string name, string lastname, string username, string password, Planner planner)
+		public User(string name, string lastname, string username, string password)
 		{
 			Name = name;
 			Lastname = lastname;
 			Username = username;
 			Password = password;
-			Planner = planner;
 		}
 
 		protected User()
@@ -69,16 +67,6 @@ namespace Common
 			{
 				password = value;
 				OnPropertyChanged("Password");
-			}
-		}
-
-		[DataMember]
-		public virtual Planner Planner
-		{
-			get => planner; set
-			{
-				planner = value;
-				OnPropertyChanged("Planner");
 			}
 		}
 

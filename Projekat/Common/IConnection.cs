@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace Common
 {
@@ -13,7 +14,6 @@ namespace Common
 
 		[OperationContract]
 		void Logout(string userName);
-
 		[OperationContract]
 		void ChangeUserData(User newUser);
 
@@ -22,5 +22,11 @@ namespace Common
 
 		[OperationContract]
 		bool AddUser(User newUser);
+
+		[OperationContract]
+		void AddPlanner(Planner planner);
+
+		[OperationContract]
+		List<Planner> GetPlanners();
 	}
 }

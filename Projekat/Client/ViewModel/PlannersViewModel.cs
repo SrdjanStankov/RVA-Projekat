@@ -1,5 +1,7 @@
 ﻿using Client.Model;
+using Client.View;
 using Common;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Client.ViewModel
@@ -10,7 +12,17 @@ namespace Client.ViewModel
 
 		public ObservableCollection<Planner> Planners
 		{
-			get => planners;
+			get
+			{
+				planners.Clear();
+				try
+				{
+					LoginViewModel.proxy.GetPlanners().ForEach(item => planners.Add(item));
+				}
+				catch (Exception) { }
+				return planners;
+			}
+
 			set
 			{
 				planners = value;
@@ -18,17 +30,22 @@ namespace Client.ViewModel
 			}
 		}
 
-		public Command<object> BtnCommand { get; set; }
+		public Command<int> AddEventCommand { get; set; } // parameter is id of planner
+		public Command AddPlannerCommand { get; set; }
+		public Command<string> SearchCommand { get; set; } // parameter is text for search
 
 		public PlannersViewModel()
 		{
 			Planners = new ObservableCollection<Planner>();
-			BtnCommand = new Command<object>((obj) => System.Windows.MessageBox.Show((obj as Planner).Id.ToString()));
+			AddEventCommand = new Command<int>((obj) => System.Windows.MessageBox.Show(obj.ToString()));
+			SearchCommand = new Command<string>((obj) => System.Windows.MessageBox.Show(obj));
+			AddPlannerCommand = new Command(OnAddPlanner);
+		}
 
-			Planners.Add(new Planner() { Id = 1, Events = new System.Collections.Generic.List<Event>() { new Event() { Id = 5 }, new Event() { Id = 6 } } });
-			Planners.Add(new Planner() { Id = 2 });
-			Planners.Add(new Planner() { Id = 3 });
-			Planners.Add(new Planner() { Id = 4 });
+		private void OnAddPlanner()
+		{
+			var plannerWindow = new AddPlannerWindow();
+			plannerWindow.ShowDialog();
 		}
 	}
 }

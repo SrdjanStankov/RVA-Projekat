@@ -8,7 +8,7 @@ namespace Common
 	{
 		public Administrator() : base() { }
 
-		public Administrator(string name, string lastname, string username, string password, Planner planner) : base(name, lastname, username, password, planner)
+		public Administrator(string name, string lastname, string username, string password) : base(name, lastname, username, password)
 		{
 		}
 	}
