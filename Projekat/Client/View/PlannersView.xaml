@@ -31,7 +31,7 @@
                     Width="220"
                     Height="40"
                     VerticalContentAlignment="Center"
-                    ToolTip="ID za filtriranje" />
+                    ToolTip="Name for search" />
                 <Button
                     Width="70"
                     Height="40"
@@ -71,7 +71,7 @@
                 CanUserResizeColumns="False"
                 CanUserResizeRows="False"
                 CanUserSortColumns="False"
-                ItemsSource="{Binding Planners}"
+                ItemsSource="{Binding PlannersToShow}"
                 RowHeaderWidth="0">
                 <DataGrid.Columns>
                     <DataGridTextColumn
@@ -140,6 +140,45 @@
                                         Command="{Binding Path=DataContext.AddEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                         CommandParameter="{Binding Id}"
                                         Content="Add event" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button
+                                        Command="{Binding Path=DataContext.RemovePlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding Id}"
+                                        Content="Remove planner" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button
+                                        Command="{Binding Path=DataContext.EditPlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding Id}"
+                                        Content="Edit planner" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button
+                                        Command="{Binding Path=DataContext.DoublePlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding Id}"
+                                        Content="Double planner" />
                                 </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

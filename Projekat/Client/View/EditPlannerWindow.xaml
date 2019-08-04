@@ -1,18 +1,19 @@
 ﻿<Window
-    x:Class="Client.View.AddEventWindow"
+    x:Class="Client.View.EditPlannerWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:Client.ViewModel"
     Name="Window"
-    Title="Add Event"
+    Title="Edit planner"
     Width="280"
     Height="286"
     FocusManager.FocusedElement="{Binding ElementName=NameTB}"
     mc:Ignorable="d">
+
     <Window.DataContext>
-        <viewModel:AddEventViewModel />
+        <viewModel:EditPlannerViewModel />
     </Window.DataContext>
 
     <Grid>
@@ -32,7 +33,7 @@
                 Name="NameErrorTB"
                 MinWidth="200"
                 Foreground="Red"
-                Text="{Binding Event.ValidationErrors[Name]}" />
+                Text="{Binding Planner.ValidationErrors[Name]}" />
             <Label
                 Name="DescLabel"
                 HorizontalAlignment="Center"
@@ -51,15 +52,15 @@
                 Name="DescErrorTB"
                 MinWidth="200"
                 Foreground="Red"
-                Text="{Binding Event.ValidationErrors[Description]}" />
+                Text="{Binding Planner.ValidationErrors[Description]}" />
             <Button
                 Name="AddBtn"
                 Width="80"
                 Height="30"
                 HorizontalAlignment="Center"
-                Command="{Binding AddEventCommand}"
+                Command="{Binding EditPlannerCommand}"
                 CommandParameter="{Binding ElementName=Window}"
-                Content="Add event"
+                Content="Save planner"
                 IsDefault="True" />
         </StackPanel>
     </Grid>

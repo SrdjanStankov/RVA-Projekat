@@ -9,6 +9,7 @@
     Title="Planner"
     Width="280"
     Height="286"
+    FocusManager.FocusedElement="{Binding ElementName=NameTB}"
     mc:Ignorable="d">
 
     <Window.DataContext>

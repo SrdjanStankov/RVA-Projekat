@@ -135,5 +135,32 @@ namespace Server
 				ctx.AddEvent(@event, plannerId);
 			}
 		}
+
+		public void RemovePlanner(int id)
+		{
+			Console.WriteLine($"Removing planner: {id}");
+			using (var ctx = new ModelContext())
+			{
+				ctx.RemovePlanner(id);
+			}
+		}
+
+		public Planner GetPlanner(int id)
+		{
+			Console.WriteLine($"Getting planner: {id}");
+			using (var ctx = new ModelContext())
+			{
+				return ctx.GetPlanner(id);
+			}
+		}
+
+		public void EditPlanner(Planner planner)
+		{
+			Console.WriteLine($"Editing planner: {planner.Id}");
+			using (var ctx = new ModelContext())
+			{
+				ctx.EditPlanner(planner);
+			}
+		}
 	}
 }

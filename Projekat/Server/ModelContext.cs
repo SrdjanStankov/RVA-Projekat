@@ -48,9 +48,9 @@ namespace Server
 			return Planners.AsNoTracking().Include(p => p.Events).ToList();
 		}
 
-		public void RemovePlanner(Planner planner)
+		public void RemovePlanner(int plannerId)
 		{
-			Planners.Remove(planner);
+			Planners.Remove(Planners.Include(p => p.Events).FirstOrDefault(p => p.Id == plannerId));
 			SaveChanges();
 		}
 
@@ -100,6 +100,13 @@ namespace Server
 		{
 			Planners.FirstOrDefault(p => p.Id == plannerId).Events.Add(@event);
 			Events.Add(@event);
+			SaveChanges();
+		}
+
+		public void EditPlanner(Planner planner)
+		{
+			var oldPlanner = Planners.FirstOrDefault(p => p.Id == planner.Id);
+			Entry(oldPlanner).CurrentValues.SetValues(planner);
 			SaveChanges();
 		}
 

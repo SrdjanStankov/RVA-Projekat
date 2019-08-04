@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Client.ViewModel
 {
-	public class AddPlannerViewModel : BindableBase
+	public class EditPlannerViewModel : BindableBase
 	{
 		private Planner planner;
 		private string description;
@@ -19,7 +19,7 @@ namespace Client.ViewModel
 				OnPropertyChanged("Description");
 			}
 		}
-		public Command<Window> AddPlannerCommand { get; set; }
+		public Command<Window> EditPlannerCommand { get; set; }
 		public Planner Planner
 		{
 			get => planner;
@@ -30,14 +30,18 @@ namespace Client.ViewModel
 			}
 		}
 
-		public AddPlannerViewModel()
+		public EditPlannerViewModel()
 		{
-			AddPlannerCommand = new Command<Window>(OnAdd);
+			EditPlannerCommand = new Command<Window>(OnEdit);
+			Planner = MessageHost.Instance.GetMessage() as Planner;
+			Name = Planner.Name;
+			Description = Planner.Description;
 		}
 
-		private void OnAdd(Window window)
+		private void OnEdit(Window window)
 		{
-			Planner = new Planner(Name, Description);
+			Planner.Name = Name;
+			Planner.Description = Description;
 			Planner.Validate();
 
 			if (!Planner.IsValid)
@@ -45,7 +49,7 @@ namespace Client.ViewModel
 				return;
 			}
 
-			LoginViewModel.proxy.AddPlanner(Planner);
+			LoginViewModel.proxy.EditPlanner(Planner);
 			window.Close();
 		}
 	}

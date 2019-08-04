@@ -31,5 +31,14 @@ namespace Common
 
 		[OperationContract]
 		void AddEvent(Event @event, int plannerId);
+
+		[OperationContract]
+		void RemovePlanner(int id);
+
+		[OperationContract]
+		Planner GetPlanner(int id);
+
+		[OperationContract]
+		void EditPlanner(Planner planner);
 	}
 }
