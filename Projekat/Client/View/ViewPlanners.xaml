@@ -14,10 +14,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Grid
-            Grid.Row="0"
-            Height="60"
-            VerticalAlignment="Top">
+        <Grid Grid.Row="0" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
                 <ColumnDefinition Width="400" />
@@ -142,7 +139,7 @@
                                     <Button
                                         Command="{Binding Path=DataContext.AddEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                         CommandParameter="{Binding Id}"
-                                        Content="Events" />
+                                        Content="Add event" />
                                 </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

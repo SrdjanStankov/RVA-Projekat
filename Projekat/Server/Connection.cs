@@ -126,5 +126,14 @@ namespace Server
 				return ctx.GetPlanners();
 			}
 		}
+
+		public void AddEvent(Event @event, int plannerId)
+		{
+			Console.WriteLine($"Adding event to planner {plannerId}");
+			using (var ctx = new ModelContext())
+			{
+				ctx.AddEvent(@event, plannerId);
+			}
+		}
 	}
 }

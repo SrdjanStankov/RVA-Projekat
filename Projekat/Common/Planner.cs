@@ -20,7 +20,7 @@
 
 		public string Description { get; set; }
 
-		public System.Collections.Generic.List<Event> Events { get; set; }
+		public System.Collections.Generic.List<Event> Events { get; set; } = new System.Collections.Generic.List<Event>();
 
 		protected override void ValidateSelf()
 		{

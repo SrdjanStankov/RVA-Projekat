@@ -37,15 +37,16 @@ namespace Client.ViewModel
 		public PlannersViewModel()
 		{
 			Planners = new ObservableCollection<Planner>();
-			AddEventCommand = new Command<int>((obj) => System.Windows.MessageBox.Show(obj.ToString()));
 			SearchCommand = new Command<string>((obj) => System.Windows.MessageBox.Show(obj));
-			AddPlannerCommand = new Command(OnAddPlanner);
+			AddEventCommand = new Command<int>(OnAddEvent);
+			AddPlannerCommand = new Command(() => new AddPlannerWindow().ShowDialog());
 		}
 
-		private void OnAddPlanner()
+		private void OnAddEvent(int obj)
 		{
-			var plannerWindow = new AddPlannerWindow();
-			plannerWindow.ShowDialog();
+			var Window = new AddEventWindow();
+			MessageHost.Instance.SendMessage(obj);
+			Window.ShowDialog();
 		}
 	}
 }

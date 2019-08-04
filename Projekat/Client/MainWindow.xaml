@@ -40,9 +40,15 @@
     </Window.Resources>
 
     <Grid>
-        <DockPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
             <ContentControl Content="{Binding MenuViewModel}" />
-        </DockPanel>
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
     </Grid>
 </Window>

@@ -9,15 +9,13 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <Menu
-            Grid.Row="0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
-            DockPanel.Dock="Top">
-            <MenuItem Command="{Binding DashboardCommand}" Header="Dashboard" />
-            <MenuItem Command="{Binding PlannersCommand}" Header="Planners" />
-            <MenuItem Command="{Binding AddUserCommand}" Header="Add User" />
-            <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
-        </Menu>
+        <DockPanel VerticalAlignment="Top">
+            <Menu HorizontalAlignment="Stretch">
+                <MenuItem Command="{Binding DashboardCommand}" Header="Dashboard" />
+                <MenuItem Command="{Binding PlannersCommand}" Header="Planners" />
+                <MenuItem Command="{Binding AddUserCommand}" Header="Add User" />
+                <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
+            </Menu>
+        </DockPanel>
     </Grid>
 </UserControl>

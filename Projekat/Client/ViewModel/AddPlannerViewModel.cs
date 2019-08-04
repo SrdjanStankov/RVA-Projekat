@@ -32,7 +32,6 @@ namespace Client.ViewModel
 		public AddPlannerViewModel()
 		{
 			AddPlannerCommand = new Command<System.Windows.Window>(OnAdd);
-			Description = "";
 		}
 
 		private void OnAdd(System.Windows.Window window)

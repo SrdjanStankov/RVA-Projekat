@@ -59,8 +59,11 @@
     </ApplicationDefinition>
     <Compile Include="Model\ConnectionCallback.cs" />
     <Compile Include="Model\Command.cs" />
+    <Compile Include="Model\IMessage.cs" />
     <Compile Include="Model\LoginUser.cs" />
     <Compile Include="Model\ChangingViewEvents.cs" />
+    <Compile Include="Model\MessageHost.cs" />
+    <Compile Include="ViewModel\AddEventViewModel.cs" />
     <Compile Include="ViewModel\AddPlannerViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
@@ -68,6 +71,9 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\PlannersViewModel.cs" />
+    <Compile Include="View\AddEventWindow.xaml.cs">
+      <DependentUpon>AddEventWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddPlannerWindow.xaml.cs">
       <DependentUpon>AddPlannerWindow.xaml</DependentUpon>
     </Compile>
@@ -98,6 +104,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AddEventWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddPlannerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

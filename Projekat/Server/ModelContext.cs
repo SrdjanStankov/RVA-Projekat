@@ -1,4 +1,5 @@
 using Common;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Server
 		public DbSet<Planner> Planners { get; set; }
 
 		public DbSet<User> Users { get; set; }
+
+		public DbSet<Event> Events { get; set; }
 
 		public ModelContext() : base("name=ModelContext")
 		{
@@ -37,12 +40,12 @@ namespace Server
 
 		public Planner GetPlanner(int id)
 		{
-			return Planners.AsNoTracking().Where(p => p.Id == id).FirstOrDefault();
+			return Planners.AsNoTracking().Include(p => p.Events).Where(p => p.Id == id).FirstOrDefault();
 		}
 
 		public List<Planner> GetPlanners()
 		{
-			return Planners.AsNoTracking().ToList();
+			return Planners.AsNoTracking().Include(p => p.Events).ToList();
 		}
 
 		public void RemovePlanner(Planner planner)
@@ -87,6 +90,17 @@ namespace Server
 		public bool ExistUser(string username)
 		{
 			return Users.AsNoTracking().FirstOrDefault(u => u.Username == username) == null ? false : true;
+		}
+
+		#endregion
+
+		#region Events Methods
+
+		public void AddEvent(Event @event, int plannerId)
+		{
+			Planners.FirstOrDefault(p => p.Id == plannerId).Events.Add(@event);
+			Events.Add(@event);
+			SaveChanges();
 		}
 
 		#endregion

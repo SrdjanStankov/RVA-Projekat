@@ -28,5 +28,8 @@ namespace Common
 
 		[OperationContract]
 		List<Planner> GetPlanners();
+
+		[OperationContract]
+		void AddEvent(Event @event, int plannerId);
 	}
 }
