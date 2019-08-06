@@ -11,7 +11,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Height="60">
@@ -66,6 +65,7 @@
                 Name="Grid"
                 Width="auto"
                 Height="auto"
+                MaxHeight="330"
                 AutoGenerateColumns="False"
                 BorderThickness="0"
                 CanUserAddRows="False"
@@ -75,7 +75,10 @@
                 CanUserResizeRows="False"
                 CanUserSortColumns="False"
                 ItemsSource="{Binding PlannersToShow}"
-                RowHeaderWidth="0">
+                RowHeaderWidth="0"
+                ScrollViewer.CanContentScroll="True"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Binding="{Binding Id}"
