@@ -25,19 +25,22 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
-                <Label VerticalAlignment="Center" Content="Search" />
+                <Label VerticalAlignment="Center" Content=" Search " />
                 <TextBox
                     Name="SearchTb"
                     Width="220"
-                    Height="40"
+                    Height="32"
                     VerticalContentAlignment="Center"
+                    TextChanged="SearchTb_TextChanged"
                     ToolTip="Name for search" />
                 <Button
+                    Name="SearchBtn"
                     Width="70"
                     Height="40"
                     Command="{Binding SearchCommand}"
                     CommandParameter="{Binding Text, ElementName=SearchTb}"
-                    Content="Search" />
+                    Content="Search"
+                    Visibility="Collapsed" />
             </StackPanel>
             <StackPanel
                 Grid.Row="0"

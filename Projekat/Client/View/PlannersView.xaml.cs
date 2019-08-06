@@ -11,5 +11,10 @@ namespace Client.View
 		{
 			InitializeComponent();
 		}
+
+		private void SearchTb_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			SearchBtn.Command.Execute(SearchTb.Text);
+		}
 	}
 }

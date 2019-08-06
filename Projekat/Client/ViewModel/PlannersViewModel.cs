@@ -67,13 +67,20 @@ namespace Client.ViewModel
 				return;
 			}
 			var finded = new ObservableCollection<Planner>();
-			LoginViewModel.proxy.GetPlanners().ForEach(item =>
+			var plannersList = LoginViewModel.proxy.GetPlanners();
+			foreach (var item in plannersList)
 			{
 				if (item.Name.Contains(obj))
 				{
 					finded.Add(item);
+					continue;
 				}
-			});
+				if (item.Description.Contains(obj))
+				{
+					finded.Add(item);
+					continue;
+				}
+			}
 
 			PlannersToShow = finded;
 		}
