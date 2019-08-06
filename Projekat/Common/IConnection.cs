@@ -25,21 +25,21 @@ namespace Common
 		bool AddUser(User newUser);
 
 		[OperationContract]
-		void AddPlanner(Planner planner);
+		void AddPlanner(Planner planner, string usernameThatAdded);
 
 		[OperationContract]
 		List<Planner> GetPlanners();
 
 		[OperationContract]
-		void AddEvent(Event @event, int plannerId);
+		void AddEvent(Event @event, int plannerId, string usernameThatAdded);
 
 		[OperationContract]
-		void RemovePlanner(int id);
+		void RemovePlanner(int id, string usernameThatAdded);
 
 		[OperationContract]
 		Planner GetPlanner(int id);
 
 		[OperationContract]
-		void EditPlanner(Planner planner);
+		void EditPlanner(Planner planner, string usernameThatAdded);
 	}
 }

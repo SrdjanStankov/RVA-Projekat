@@ -49,7 +49,7 @@ namespace Client.ViewModel
 				return;
 			}
 
-			LoginViewModel.proxy.EditPlanner(Planner);
+			LoginViewModel.proxy.EditPlanner(Planner, LoginViewModel.factory.Credentials.UserName.UserName);
 			window.Close();
 		}
 	}

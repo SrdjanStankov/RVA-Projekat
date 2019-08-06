@@ -30,7 +30,10 @@ namespace Server
 		{
 			foreach (var item in callbackList)
 			{
-				item.Value.NotifyChange();
+				if (item.Key != userName)
+				{
+					item.Value.NotifyChange();
+				}
 			}
 
 			Console.WriteLine($"Change");
@@ -94,13 +97,14 @@ namespace Server
 			return false;
 		}
 
-		public void AddPlanner(Planner planner)
+		public void AddPlanner(Planner planner, string usernameThatAdded)
 		{
 			Console.WriteLine($"Adding planner:{planner.Name}");
 			using (var ctx = new ModelContext())
 			{
 				ctx.AddPlanner(planner);
 			}
+			Change(usernameThatAdded);
 		}
 
 		public List<Planner> GetPlanners()
@@ -112,22 +116,24 @@ namespace Server
 			}
 		}
 
-		public void AddEvent(Event @event, int plannerId)
+		public void AddEvent(Event @event, int plannerId, string usernameThatAdded)
 		{
 			Console.WriteLine($"Adding event to planner {plannerId}");
 			using (var ctx = new ModelContext())
 			{
 				ctx.AddEvent(@event, plannerId);
 			}
+			Change(usernameThatAdded);
 		}
 
-		public void RemovePlanner(int id)
+		public void RemovePlanner(int id, string usernameThatAdded)
 		{
 			Console.WriteLine($"Removing planner: {id}");
 			using (var ctx = new ModelContext())
 			{
 				ctx.RemovePlanner(id);
 			}
+			Change(usernameThatAdded);
 		}
 
 		public Planner GetPlanner(int id)
@@ -139,13 +145,14 @@ namespace Server
 			}
 		}
 
-		public void EditPlanner(Planner planner)
+		public void EditPlanner(Planner planner, string usernameThatAdded)
 		{
 			Console.WriteLine($"Editing planner: {planner.Id}");
 			using (var ctx = new ModelContext())
 			{
 				ctx.EditPlanner(planner);
 			}
+			Change(usernameThatAdded);
 		}
 	}
 }

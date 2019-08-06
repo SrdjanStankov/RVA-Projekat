@@ -37,7 +37,7 @@ namespace Client.ViewModel
 			SearchCommand = new Command<string>(OnSearch);
 			AddEventCommand = new Command<int>(OnAddEvent);
 			AddPlannerCommand = new Command(() => { new AddPlannerWindow().ShowDialog(); ChangingViewEvents.Instance.RaisePlannersEvent(); });
-			RemovePlannerCommand = new Command<int>((id) => { LoginViewModel.proxy.RemovePlanner(id); ChangingViewEvents.Instance.RaisePlannersEvent(); });
+			RemovePlannerCommand = new Command<int>((id) => { LoginViewModel.proxy.RemovePlanner(id, LoginViewModel.factory.Credentials.UserName.UserName); ChangingViewEvents.Instance.RaisePlannersEvent(); });
 			EditPlannerCommand = new Command<int>(OnEdit);
 			DoublePlannerCommand = new Command<int>(OnDouble);
 		}
@@ -46,7 +46,7 @@ namespace Client.ViewModel
 		{
 			var plan = LoginViewModel.proxy.GetPlanner(obj);
 			plan.Id = 0;
-			LoginViewModel.proxy.AddPlanner(plan);
+			LoginViewModel.proxy.AddPlanner(plan, LoginViewModel.factory.Credentials.UserName.UserName);
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
 
