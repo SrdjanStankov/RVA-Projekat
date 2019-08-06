@@ -13,7 +13,17 @@
             <Menu HorizontalAlignment="Stretch">
                 <MenuItem Command="{Binding DashboardCommand}" Header="Dashboard" />
                 <MenuItem Command="{Binding PlannersCommand}" Header="Planners" />
-                <MenuItem Command="{Binding AddUserCommand}" Header="Add User" />
+                <MenuItem Command="{Binding AddUserCommand}" Header="Add User">
+                    <MenuItem.Style>
+                        <Style TargetType="{x:Type MenuItem}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsAdmin}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
+                </MenuItem>
                 <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
             </Menu>
         </DockPanel>
