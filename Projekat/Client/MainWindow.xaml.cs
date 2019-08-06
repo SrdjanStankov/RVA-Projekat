@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Client.Model;
+using System.Windows;
 
 namespace Client
 {
@@ -10,6 +11,11 @@ namespace Client
 		public MainWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			ChangingViewEvents.Instance.RaiseLogoutEvent();
 		}
 	}
 }

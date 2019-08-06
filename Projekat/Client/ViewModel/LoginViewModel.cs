@@ -36,11 +36,15 @@ namespace Client.ViewModel
 
 		private void Logout(object sender, EventArgs e)
 		{
-			proxy.Logout(factory.Credentials.UserName.UserName);
-			factory.Close();
-			proxy = null;
-			factory = null;
-			User = new LoginUser();
+			try
+			{
+				proxy.Logout(factory.Credentials.UserName.UserName);
+				factory.Close();
+				proxy = null;
+				factory = null;
+				User = new LoginUser();
+			}
+			catch (Exception) { }
 		}
 
 		private void OnLogin(object param)
