@@ -7,19 +7,9 @@ namespace Client.Model
 	[CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Single, UseSynchronizationContext = false)]
 	public class ConnectionCallback : IConnectionCallback
 	{
-		public void NotifyChange(string username)
+		public void NotifyChange()
 		{
 			MessageBox.Show("Change");
-		}
-
-		public void NotifyLogin(string username)
-		{
-			MessageBox.Show("Login", username);
-		}
-
-		public void NotifyLogout(string username)
-		{
-			MessageBox.Show("Logout");
 		}
 	}
 }

@@ -10,10 +10,11 @@ namespace Common
 		void Login(string userName, string password);
 
 		[OperationContract]
-		void Change(string userName, string password);
+		void Change(string userName);
 
 		[OperationContract]
 		void Logout(string userName);
+
 		[OperationContract]
 		void ChangeUserData(User newUser);
 

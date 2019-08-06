@@ -18,30 +18,19 @@ namespace Server
 		{
 			var registeredUser = OperationContext.Current.GetCallbackChannel<IConnectionCallback>();
 
-			if (!callbackList.ContainsKey(userName/*registeredUser*/))
+			if (!callbackList.ContainsKey(userName))
 			{
 				callbackList.Add(userName, registeredUser);
 			}
 
-			//callbackList[userName].NotifyLogin(userName);
-
-			//callbackList.ForEach(
-			//	delegate (IConnectionCallback callback)
-			//	{
-			//		callback.NotifyLogin(userName);
-			//		registeredUsers++;
-			//	});
-
 			Console.WriteLine($"Login: {userName}");
 		}
 
-		public void Change(string userName, string password)
+		public void Change(string userName)
 		{
-			callbackList[userName].NotifyChange(userName);
-
 			foreach (var item in callbackList)
 			{
-				item.Value.NotifyChange(userName);
+				item.Value.NotifyChange();
 			}
 
 			Console.WriteLine($"Change");
@@ -53,14 +42,10 @@ namespace Server
 
 		public void Logout(string userName)
 		{
-			if (callbackList.ContainsKey(userName/* registeredUser*/))
+			if (callbackList.ContainsKey(userName))
 			{
-				callbackList.Remove(userName/*registeredUser*/);
+				callbackList.Remove(userName);
 			}
-
-			//callbackList.ForEach(
-			//	delegate (IConnectionCallback callback)
-			//	{ callback.NotifyLogout(userName); });
 
 			Console.WriteLine($"Logout: {userName}");
 		}
