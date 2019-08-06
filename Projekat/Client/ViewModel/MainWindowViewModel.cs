@@ -1,10 +1,13 @@
 ﻿using Client.Model;
 using Common;
+using System.ServiceModel;
 
 namespace Client.ViewModel
 {
 	public class MainWindowViewModel : BindableBase
 	{
+		public static InstanceContext connectionContext = new InstanceContext(new ConnectionCallback());
+
 		private BindableBase currentViewModel;
 		private BindableBase menuViewModel;
 

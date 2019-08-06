@@ -14,7 +14,6 @@ namespace Client.ViewModel
 		public static DuplexChannelFactory<IConnection> factory;
 
 		private LoginUser user;
-		private ConnectionCallback connectionCallback;
 
 		public Command<object> LoginCommand { get; set; }
 
@@ -30,7 +29,6 @@ namespace Client.ViewModel
 		public LoginViewModel()
 		{
 			User = new LoginUser();
-			connectionCallback = new ConnectionCallback();
 
 			LoginCommand = new Command<object>(OnLogin);
 			ChangingViewEvents.Instance.LogoutEvent += Logout;
@@ -58,7 +56,7 @@ namespace Client.ViewModel
 			binding.Security.Mode = SecurityMode.TransportWithMessageCredential;
 			binding.Security.Message.ClientCredentialType = MessageCredentialType.UserName;
 
-			factory = new DuplexChannelFactory<IConnection>(connectionCallback, binding, $"net.tcp://localhost:{11223}");
+			factory = new DuplexChannelFactory<IConnection>(MainWindowViewModel.connectionContext, binding, $"net.tcp://localhost:{11223}");
 			factory.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySubjectName, "localhost");
 			factory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
 			factory.Credentials.UserName.UserName = User.Username;

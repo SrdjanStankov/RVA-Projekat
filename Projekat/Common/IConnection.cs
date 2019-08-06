@@ -6,16 +6,16 @@ namespace Common
 	[ServiceContract(CallbackContract = typeof(IConnectionCallback), SessionMode = SessionMode.Required)]
 	public interface IConnection
 	{
-		[OperationContract]
+		[OperationContract(IsOneWay = true)]
 		void Login(string userName, string password);
 
-		[OperationContract]
+		[OperationContract(IsOneWay = true)]
 		void Change(string userName);
 
-		[OperationContract]
+		[OperationContract(IsOneWay = true)]
 		void Logout(string userName);
 
-		[OperationContract]
+		[OperationContract(IsOneWay = true)]
 		void ChangeUserData(User newUser);
 
 		[OperationContract]
@@ -24,22 +24,22 @@ namespace Common
 		[OperationContract]
 		bool AddUser(User newUser);
 
-		[OperationContract]
+		[OperationContract(IsOneWay = true)]
 		void AddPlanner(Planner planner, string usernameThatAdded);
 
 		[OperationContract]
 		List<Planner> GetPlanners();
 
-		[OperationContract]
+		[OperationContract(IsOneWay = true)]
 		void AddEvent(Event @event, int plannerId, string usernameThatAdded);
 
-		[OperationContract]
+		[OperationContract(IsOneWay = true)]
 		void RemovePlanner(int id, string usernameThatAdded);
 
 		[OperationContract]
 		Planner GetPlanner(int id);
 
-		[OperationContract]
+		[OperationContract(IsOneWay = true)]
 		void EditPlanner(Planner planner, string usernameThatAdded);
 	}
 }
