@@ -9,7 +9,9 @@
     Title="MainWindow"
     Width="800"
     Height="450"
-    mc:Ignorable="d" Closing="Window_Closing">
+    Closing="Window_Closing"
+    ResizeMode="CanMinimize"
+    mc:Ignorable="d">
 
     <Window.DataContext>
         <viewModel:MainWindowViewModel />
