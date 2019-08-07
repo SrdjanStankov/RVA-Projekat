@@ -67,6 +67,7 @@
     <Compile Include="ViewModel\AddPlannerViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
+    <Compile Include="ViewModel\EditEventViewModel.cs" />
     <Compile Include="ViewModel\EditPlannerViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
@@ -83,6 +84,9 @@
     </Compile>
     <Compile Include="View\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditEventWindow.xaml.cs">
+      <DependentUpon>EditEventWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditPlannerWindow.xaml.cs">
       <DependentUpon>EditPlannerWindow.xaml</DependentUpon>
@@ -121,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditEventWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

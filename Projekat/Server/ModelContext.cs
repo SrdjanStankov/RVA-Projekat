@@ -110,6 +110,24 @@ namespace Server
 			SaveChanges();
 		}
 
+		public void EditEvent(Event @event)
+		{
+			var oldEvent = Events.FirstOrDefault(e => e.Id == @event.Id);
+			Entry(oldEvent).CurrentValues.SetValues(@event);
+			SaveChanges();
+		}
+
+		public Event GetEvent(int id)
+		{
+			return Events.AsNoTracking().FirstOrDefault(e => e.Id == id);
+		}
+
+		public void RemoveEvent(int id)
+		{
+			Events.Remove(Events.FirstOrDefault(e => e.Id == id));
+			SaveChanges();
+		}
+
 		#endregion
 	}
 }

@@ -36,6 +36,7 @@ namespace Client.ViewModel
 			}
 
 			LoginViewModel.proxy.AddEvent(Event, (int)MessageHost.Instance.GetMessage(), LoginViewModel.factory.Credentials.UserName.UserName);
+			window.DialogResult = true;
 			window.Close();
 		}
 	}

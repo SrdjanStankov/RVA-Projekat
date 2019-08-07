@@ -46,6 +46,7 @@ namespace Client.ViewModel
 			}
 
 			LoginViewModel.proxy.AddPlanner(Planner, LoginViewModel.factory.Credentials.UserName.UserName);
+			window.DialogResult = true;
 			window.Close();
 		}
 	}

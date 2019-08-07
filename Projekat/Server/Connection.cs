@@ -154,5 +154,34 @@ namespace Server
 			}
 			Change(usernameThatAdded);
 		}
+
+		public void EditEvent(Event @event, string userName)
+		{
+			Console.WriteLine($"Editing event: {@event.Id}");
+			using (var ctx = new ModelContext())
+			{
+				ctx.EditEvent(@event);
+			}
+			Change(userName);
+		}
+
+		public Event GetEvent(int id)
+		{
+			Console.WriteLine($"Getting event: {id}");
+			using (var ctx = new ModelContext())
+			{
+				return ctx.GetEvent(id);
+			}
+		}
+
+		public void RemoveEvent(int id, string usernameThatAdded)
+		{
+			Console.WriteLine($"Removing event: {id}");
+			using (var ctx = new ModelContext())
+			{
+				ctx.RemoveEvent(id);
+			}
+			Change(usernameThatAdded);
+		}
 	}
 }

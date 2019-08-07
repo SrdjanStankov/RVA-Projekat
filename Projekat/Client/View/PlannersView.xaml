@@ -7,6 +7,18 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+
+    <UserControl.InputBindings>
+        <KeyBinding
+            Key="Z"
+            Command="{Binding UndoCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="Y"
+            Command="{Binding RedoCommand}"
+            Modifiers="Ctrl" />
+    </UserControl.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -62,7 +74,7 @@
 
         <Grid Grid.Row="1">
             <DataGrid
-                Name="Grid"
+                x:Name="Grid1"
                 Width="auto"
                 Height="auto"
                 MaxHeight="330"
@@ -194,10 +206,11 @@
 
                 <DataGrid.RowDetailsTemplate>
                     <DataTemplate>
-                        <ListView ItemsSource="{Binding Events}">
+                        <ListView x:Name="List1" ItemsSource="{Binding Events}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn
+                                        x:Name="EventId"
                                         Width="auto"
                                         DisplayMemberBinding="{Binding Id}"
                                         Header="Id" />
@@ -209,6 +222,29 @@
                                         Width="auto"
                                         DisplayMemberBinding="{Binding Description}"
                                         Header="Description" />
+
+                                    <GridViewColumn Width="auto" Header="">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button
+                                                    Command="{Binding Path=DataContext.EditEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Content="Edit" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Width="auto" Header="">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button
+                                                    Command="{Binding Path=DataContext.RemoveEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Content="Remove" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
                                 </GridView>
                             </ListView.View>
                         </ListView>

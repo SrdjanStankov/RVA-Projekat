@@ -37,9 +37,18 @@ namespace Common
 		void RemovePlanner(int id, string usernameThatAdded);
 
 		[OperationContract]
+		void EditEvent(Event @event, string usernameThatAdded);
+
+		[OperationContract]
+		Event GetEvent(int id);
+
+		[OperationContract]
 		Planner GetPlanner(int id);
 
 		[OperationContract(IsOneWay = true)]
 		void EditPlanner(Planner planner, string usernameThatAdded);
+
+		[OperationContract(IsOneWay = true)]
+		void RemoveEvent(int id, string usernameThatAdded);
 	}
 }
