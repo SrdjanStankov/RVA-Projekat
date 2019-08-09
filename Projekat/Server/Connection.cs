@@ -58,7 +58,7 @@ namespace Server
 			Console.WriteLine($"Changing user data: {newUser.Username}");
 			using (var ctx = new ModelContext())
 			{
-				ctx.ChangeUser(newUser);
+				ctx.EditUser(newUser);
 			}
 		}
 
@@ -182,6 +182,15 @@ namespace Server
 				ctx.RemoveEvent(id);
 			}
 			Change(usernameThatAdded);
+		}
+
+		public List<Event> GetEvents()
+		{
+			Console.WriteLine($"Getting events");
+			using (var ctx = new ModelContext())
+			{
+				return ctx.GetEvents();
+			}
 		}
 	}
 }

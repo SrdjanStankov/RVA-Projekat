@@ -76,6 +76,15 @@ namespace Client.ViewModel
 				case "RemovePlanner":
 					LoginViewModel.proxy.AddPlanner(redo.Item2 as Planner, userNameThatRequested);
 					break;
+				case "RemoveEvent":
+					LoginViewModel.proxy.AddEvent(redo.Item2 as Event, (int)redo.Item3, userNameThatRequested);
+					break;
+				case "EditEvent":
+					LoginViewModel.proxy.EditEvent(redo.Item2 as Event, userNameThatRequested);
+					break;
+				case "EditPlanner":
+					LoginViewModel.proxy.EditPlanner(redo.Item2 as Planner, userNameThatRequested);
+					break;
 				default:
 					break;
 			}
@@ -104,6 +113,39 @@ namespace Client.ViewModel
 					var pp = LoginViewModel.proxy.GetPlanner(idp);
 					LoginViewModel.proxy.RemovePlanner(idp, userNameThatRequested);
 					redoStack.Push(new Tuple<string, object, object>("RemovePlanner", pp, null));
+					break;
+				case "AddEvent":
+					int eid = (int)undo.Item2;
+					var ee = LoginViewModel.proxy.GetEvent(eid);
+					var ps = LoginViewModel.proxy.GetPlanners();
+					int eepid = -1;
+					foreach (var item in ps)
+					{
+						foreach (var item2 in item.Events)
+						{
+							if (item2.Id==eid)
+							{
+								eepid = item.Id;
+								break;
+							}
+						}
+						if (eepid != -1)
+						{
+							break;
+						}
+					}
+					LoginViewModel.proxy.RemoveEvent(eid, userNameThatRequested);
+					redoStack.Push(new Tuple<string, object, object>("RemoveEvent", ee, eepid));
+					break;
+				case "EditEvent":
+					var eve = LoginViewModel.proxy.GetEvent((undo.Item2 as Event).Id);
+					LoginViewModel.proxy.EditEvent(undo.Item2 as Event, userNameThatRequested);
+					redoStack.Push(new Tuple<string, object, object>("EditEvent", eve, null));
+					break;
+				case "EditPlanner":
+					var plan = LoginViewModel.proxy.GetPlanner((undo.Item2 as Planner).Id);
+					LoginViewModel.proxy.EditPlanner(undo.Item2 as Planner, userNameThatRequested);
+					redoStack.Push(new Tuple<string, object, object>("EditPlanner", plan, null));
 					break;
 				default:
 					break;
@@ -161,7 +203,33 @@ namespace Client.ViewModel
 		{
 			var eve = LoginViewModel.proxy.GetEvent(obj);
 			MessageHost.Instance.SendMessage(eve);
-			new EditEventWindow().ShowDialog();
+			foreach (var item in LoginViewModel.proxy.GetPlanners())
+			{
+				foreach (var item2 in item.Events)
+				{
+					if (item2.Id == eve.Id)
+					{
+						MessageHost.Instance.SendMessage(item.Id);
+						goto Found;
+					}
+				}
+			}
+			Found:
+			var result = new EditEventWindow().ShowDialog();
+			var oldEvent = MessageHost.Instance.GetMessage() as Event;
+			if (result.Value)
+			{
+				var response = MessageHost.Instance.GetMessage() as string;
+				if (response == "Add")
+				{
+					var eid = LoginViewModel.proxy.GetEvents().LastOrDefault().Id;
+					undoStack.Push(new Tuple<string, object, object>("AddEvent", eid, null));
+				}
+				else if (response == "Edit")
+				{
+					undoStack.Push(new Tuple<string, object, object>("EditEvent", oldEvent, null));
+				}
+			}
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
 
@@ -178,7 +246,21 @@ namespace Client.ViewModel
 		{
 			var planner = LoginViewModel.proxy.GetPlanner(obj);
 			MessageHost.Instance.SendMessage(planner);
-			new EditPlannerWindow().ShowDialog();
+			var result = new EditPlannerWindow().ShowDialog();
+			var oldPlaner = MessageHost.Instance.GetMessage();
+			if (result.Value)
+			{
+				var response = MessageHost.Instance.GetMessage() as string;
+				if (response == "Add")
+				{
+					var pid = LoginViewModel.proxy.GetPlanners().Last().Id;
+					undoStack.Push(new Tuple<string, object, object>("AddPlanner", pid, null));
+				}
+				else if (response == "Edit")
+				{
+					undoStack.Push(new Tuple<string, object, object>("EditPlanner", oldPlaner, null));
+				}
+			}
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
 
@@ -186,7 +268,12 @@ namespace Client.ViewModel
 		{
 			var Window = new AddEventWindow();
 			MessageHost.Instance.SendMessage(obj);
-			Window.ShowDialog();
+			var result = Window.ShowDialog();
+			if (result.Value)
+			{
+				var eid = LoginViewModel.proxy.GetEvents().LastOrDefault().Id;
+				undoStack.Push(new Tuple<string, object, object>("AddEvent", eid, null));
+			}
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
 

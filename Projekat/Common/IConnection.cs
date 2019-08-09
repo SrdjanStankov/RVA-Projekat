@@ -50,5 +50,8 @@ namespace Common
 
 		[OperationContract(IsOneWay = true)]
 		void RemoveEvent(int id, string usernameThatAdded);
+
+		[OperationContract]
+		List<Event> GetEvents();
 	}
 }

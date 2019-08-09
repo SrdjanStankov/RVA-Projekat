@@ -48,6 +48,13 @@ namespace Server
 			return Planners.AsNoTracking().Include(p => p.Events).ToList();
 		}
 
+		public void EditPlanner(Planner planner)
+		{
+			var oldPlanner = Planners.FirstOrDefault(p => p.Id == planner.Id);
+			Entry(oldPlanner).CurrentValues.SetValues(planner);
+			SaveChanges();
+		}
+
 		public void RemovePlanner(int plannerId)
 		{
 			Planners.Remove(Planners.Include(p => p.Events).FirstOrDefault(p => p.Id == plannerId));
@@ -74,16 +81,16 @@ namespace Server
 			return Users.AsNoTracking().ToList();
 		}
 
-		public void RemoveUser(User user)
-		{
-			Users.Remove(user);
-			SaveChanges();
-		}
-
-		public void ChangeUser(User newUser)
+		public void EditUser(User newUser)
 		{
 			var oldUser = Users.FirstOrDefault(i => i.Username == newUser.Username);
 			Entry(oldUser).CurrentValues.SetValues(newUser);
+			SaveChanges();
+		}
+
+		public void RemoveUser(User user)
+		{
+			Users.Remove(user);
 			SaveChanges();
 		}
 
@@ -103,11 +110,14 @@ namespace Server
 			SaveChanges();
 		}
 
-		public void EditPlanner(Planner planner)
+		public Event GetEvent(int id)
 		{
-			var oldPlanner = Planners.FirstOrDefault(p => p.Id == planner.Id);
-			Entry(oldPlanner).CurrentValues.SetValues(planner);
-			SaveChanges();
+			return Events.AsNoTracking().FirstOrDefault(e => e.Id == id);
+		}
+
+		public List<Event> GetEvents()
+		{
+			return Events.AsNoTracking().ToList();
 		}
 
 		public void EditEvent(Event @event)
@@ -115,11 +125,6 @@ namespace Server
 			var oldEvent = Events.FirstOrDefault(e => e.Id == @event.Id);
 			Entry(oldEvent).CurrentValues.SetValues(@event);
 			SaveChanges();
-		}
-
-		public Event GetEvent(int id)
-		{
-			return Events.AsNoTracking().FirstOrDefault(e => e.Id == id);
 		}
 
 		public void RemoveEvent(int id)
