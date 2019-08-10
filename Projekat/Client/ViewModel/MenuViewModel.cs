@@ -14,10 +14,7 @@ namespace Client.ViewModel
 
 		public object IsAdmin
 		{
-			get
-			{
-				return LoginViewModel.proxy.GetUser(LoginViewModel.factory.Credentials.UserName.UserName) is Administrator ? new object() : null;
-			}
+			get => LoginViewModel.proxy.GetUser(LoginViewModel.factory.Credentials.UserName.UserName) is Administrator ? new object() : null;
 
 			set => isAdmin = value;
 		}

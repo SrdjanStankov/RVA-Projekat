@@ -123,7 +123,7 @@ namespace Client.ViewModel
 					{
 						foreach (var item2 in item.Events)
 						{
-							if (item2.Id==eid)
+							if (item2.Id == eid)
 							{
 								eepid = item.Id;
 								break;
@@ -190,10 +190,10 @@ namespace Client.ViewModel
 
 		private void OnAddPlanner()
 		{
-			var result = new AddPlannerWindow().ShowDialog();
+			bool? result = new AddPlannerWindow().ShowDialog();
 			if (result.Value)
 			{
-				var pid = LoginViewModel.proxy.GetPlanners().Last().Id;
+				int pid = LoginViewModel.proxy.GetPlanners().Last().Id;
 				undoStack.Push(new Tuple<string, object, object>("AddPlanner", pid, null));
 			}
 			ChangingViewEvents.Instance.RaisePlannersEvent();
@@ -215,14 +215,14 @@ namespace Client.ViewModel
 				}
 			}
 			Found:
-			var result = new EditEventWindow().ShowDialog();
+			bool? result = new EditEventWindow().ShowDialog();
 			var oldEvent = MessageHost.Instance.GetMessage() as Event;
 			if (result.Value)
 			{
-				var response = MessageHost.Instance.GetMessage() as string;
+				string response = MessageHost.Instance.GetMessage() as string;
 				if (response == "Add")
 				{
-					var eid = LoginViewModel.proxy.GetEvents().LastOrDefault().Id;
+					int eid = LoginViewModel.proxy.GetEvents().LastOrDefault().Id;
 					undoStack.Push(new Tuple<string, object, object>("AddEvent", eid, null));
 				}
 				else if (response == "Edit")
@@ -237,7 +237,7 @@ namespace Client.ViewModel
 		{
 			var plan = LoginViewModel.proxy.GetPlanner(obj);
 			LoginViewModel.proxy.AddPlanner(plan, LoginViewModel.factory.Credentials.UserName.UserName);
-			var id = LoginViewModel.proxy.GetPlanners().Last().Id;
+			int id = LoginViewModel.proxy.GetPlanners().Last().Id;
 			undoStack.Push(new Tuple<string, object, object>("AddPlanner", id, null));
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
@@ -246,14 +246,14 @@ namespace Client.ViewModel
 		{
 			var planner = LoginViewModel.proxy.GetPlanner(obj);
 			MessageHost.Instance.SendMessage(planner);
-			var result = new EditPlannerWindow().ShowDialog();
-			var oldPlaner = MessageHost.Instance.GetMessage();
+			bool? result = new EditPlannerWindow().ShowDialog();
+			object oldPlaner = MessageHost.Instance.GetMessage();
 			if (result.Value)
 			{
-				var response = MessageHost.Instance.GetMessage() as string;
+				string response = MessageHost.Instance.GetMessage() as string;
 				if (response == "Add")
 				{
-					var pid = LoginViewModel.proxy.GetPlanners().Last().Id;
+					int pid = LoginViewModel.proxy.GetPlanners().Last().Id;
 					undoStack.Push(new Tuple<string, object, object>("AddPlanner", pid, null));
 				}
 				else if (response == "Edit")
@@ -268,10 +268,10 @@ namespace Client.ViewModel
 		{
 			var Window = new AddEventWindow();
 			MessageHost.Instance.SendMessage(obj);
-			var result = Window.ShowDialog();
+			bool? result = Window.ShowDialog();
 			if (result.Value)
 			{
-				var eid = LoginViewModel.proxy.GetEvents().LastOrDefault().Id;
+				int eid = LoginViewModel.proxy.GetEvents().LastOrDefault().Id;
 				undoStack.Push(new Tuple<string, object, object>("AddEvent", eid, null));
 			}
 			ChangingViewEvents.Instance.RaisePlannersEvent();

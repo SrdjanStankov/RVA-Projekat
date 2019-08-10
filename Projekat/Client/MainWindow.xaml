@@ -9,8 +9,10 @@
     Title="MainWindow"
     Width="800"
     Height="450"
+    Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
     ResizeMode="CanMinimize"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
 
     <Window.DataContext>

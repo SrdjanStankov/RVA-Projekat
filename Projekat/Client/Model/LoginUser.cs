@@ -29,12 +29,12 @@ namespace Client.Model
 		{
 			if (string.IsNullOrWhiteSpace(username))
 			{
-				ValidationErrors["Username"] = "Required";
+				ValidationErrors["Username"] = "*";
 			}
 
 			if (string.IsNullOrWhiteSpace(password))
 			{
-				ValidationErrors["Password"] = "Required";
+				ValidationErrors["Password"] = "*";
 			}
 		}
 	}

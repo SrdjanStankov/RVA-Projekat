@@ -76,22 +76,22 @@ namespace Common
 		{
 			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name))
 			{
-				ValidationErrors["Name"] = "Required";
+				ValidationErrors["Name"] = "*";
 			}
 
 			if (string.IsNullOrWhiteSpace(lastname) || string.IsNullOrEmpty(lastname))
 			{
-				ValidationErrors["Lastname"] = "Required";
+				ValidationErrors["Lastname"] = "*";
 			}
 
 			if (string.IsNullOrWhiteSpace(username) || string.IsNullOrEmpty(username))
 			{
-				ValidationErrors["Username"] = "Required";
+				ValidationErrors["Username"] = "*";
 			}
 
 			if (string.IsNullOrWhiteSpace(password) || string.IsNullOrEmpty(password))
 			{
-				ValidationErrors["Password"] = "Required";
+				ValidationErrors["Password"] = "*";
 			}
 		}
 	}

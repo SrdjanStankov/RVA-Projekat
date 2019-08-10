@@ -1,6 +1,5 @@
 ﻿using Common;
 using System.ServiceModel;
-using System.Windows;
 
 namespace Client.Model
 {
