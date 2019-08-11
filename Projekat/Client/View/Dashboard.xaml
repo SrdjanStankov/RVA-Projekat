@@ -24,7 +24,7 @@
                     materialDesign:HintAssist.Hint="Name"
                     AutoWordSelection="True"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding User.Name}"
+                    Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
                 <TextBlock
                     MinWidth="5"
@@ -42,7 +42,7 @@
                     materialDesign:HintAssist.Hint="Lastname"
                     AutoWordSelection="True"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding User.Lastname}"
+                    Text="{Binding User.Lastname, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
                 <TextBlock
                     MinWidth="5"
@@ -59,7 +59,6 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Command="{Binding SaveCommand}"
-                CommandParameter="{Binding ElementName=PasswordBox}"
                 Content="Save"
                 IsDefault="True"
                 Style="{StaticResource MaterialDesignRaisedButton}" />

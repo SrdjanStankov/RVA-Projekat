@@ -5,7 +5,7 @@ namespace Client.ViewModel
 {
 	public class DashboardViewModel : BindableBase
 	{
-		public Command<object> SaveCommand { get; set; }
+		public Command SaveCommand { get; set; }
 
 		private User user;
 
@@ -21,7 +21,7 @@ namespace Client.ViewModel
 
 		public DashboardViewModel()
 		{
-			SaveCommand = new Command<object>(OnSave);
+			SaveCommand = new Command(OnSave);
 			ChangingViewEvents.Instance.UserLoginSuccessful += SetupUser;
 		}
 
@@ -32,7 +32,7 @@ namespace Client.ViewModel
 			OnPropertyChanged("User");
 		}
 
-		private void OnSave(object obj)
+		private void OnSave()
 		{
 			User.Validate();
 			if (!User.IsValid)
