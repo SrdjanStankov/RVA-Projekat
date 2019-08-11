@@ -28,7 +28,7 @@
                     materialDesign:HintAssist.Hint="Username"
                     AutoWordSelection="True"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding User.Username}"
+                    Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
                 <TextBlock
                     MinWidth="5"
@@ -69,5 +69,8 @@
                 IsDefault="True"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
         </StackPanel>
+        <DockPanel VerticalAlignment="Bottom">
+            <materialDesign:Snackbar MessageQueue="{Binding MessageQueue}" />
+        </DockPanel>
     </Grid>
 </UserControl>

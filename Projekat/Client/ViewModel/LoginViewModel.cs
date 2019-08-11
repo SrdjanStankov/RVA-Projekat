@@ -1,7 +1,7 @@
 ﻿using Client.Model;
 using Common;
+using MaterialDesignThemes.Wpf;
 using System;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.Windows;
@@ -16,6 +16,7 @@ namespace Client.ViewModel
 		private LoginUser user;
 
 		public Command<object> LoginCommand { get; set; }
+		public SnackbarMessageQueue MessageQueue { get; set; }
 
 		public LoginUser User
 		{
@@ -32,6 +33,7 @@ namespace Client.ViewModel
 
 			LoginCommand = new Command<object>(OnLogin);
 			ChangingViewEvents.Instance.LogoutEvent += Logout;
+			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
 		}
 
 		private void Logout(object sender, EventArgs e)
@@ -80,15 +82,15 @@ namespace Client.ViewModel
 			{
 				if (e.InnerException != null)
 				{
-					User.ValidationErrors[e.InnerException.Message.Split(' ').First()] = e.InnerException.Message;
+					MessageQueue.Enqueue($"{e.InnerException.Message}");
 				}
 				else
 				{
 					MessageBox.Show(factory.State.ToString(), "State");
 					MessageBox.Show(e.Message);
 				}
-				OnPropertyChanged("User");
 			}
+			OnPropertyChanged("User");
 		}
 	}
 }
