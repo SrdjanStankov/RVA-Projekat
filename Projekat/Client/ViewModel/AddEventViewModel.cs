@@ -1,5 +1,8 @@
 ﻿using Client.Model;
 using Common;
+using MaterialDesignThemes.Wpf;
+using System;
+using System.Windows;
 
 namespace Client.ViewModel
 {
@@ -9,7 +12,8 @@ namespace Client.ViewModel
 
 		public string Name { get; set; }
 		public string Description { get; set; }
-		public Command<System.Windows.Window> AddEventCommand { get; set; }
+		public Command<Window> AddEventCommand { get; set; }
+		public SnackbarMessageQueue MessageQueue { get; set; }
 
 		public Event Event
 		{
@@ -22,16 +26,28 @@ namespace Client.ViewModel
 
 		public AddEventViewModel()
 		{
-			AddEventCommand = new Command<System.Windows.Window>(OnAdd);
+			AddEventCommand = new Command<Window>(OnAdd);
+			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
 		}
 
-		private void OnAdd(System.Windows.Window window)
+		private void OnAdd(Window window)
 		{
 			Event = new Event(Name, Description);
 			Event.Validate();
 
 			if (!Event.IsValid)
 			{
+				if (Event.ValidationErrors["Name"] != "")
+				{
+					MessageQueue.Enqueue(Event.ValidationErrors["Name"]);
+					Event.ValidationErrors["Name"] = "*";
+				}
+				if (Event.ValidationErrors["Description"] != "")
+				{
+					MessageQueue.Enqueue(Event.ValidationErrors["Description"]);
+					Event.ValidationErrors["Description"] = "*";
+				}
+				OnPropertyChanged("Event");
 				return;
 			}
 
