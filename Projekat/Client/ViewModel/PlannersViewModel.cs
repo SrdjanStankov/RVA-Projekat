@@ -289,12 +289,12 @@ namespace Client.ViewModel
 			var plannersList = LoginViewModel.proxy.GetPlanners();
 			foreach (var item in plannersList)
 			{
-				if (item.Name.Contains(obj))
+				if (item.Name.ToLower().Contains(obj.ToLower()))
 				{
 					finded.Add(item);
 					continue;
 				}
-				if (item.Description.Contains(obj))
+				if (item.Description.ToLower().Contains(obj.ToLower()))
 				{
 					finded.Add(item);
 					continue;
