@@ -1,5 +1,7 @@
 ﻿using Client.Model;
 using Common;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Windows;
 
 namespace Client.ViewModel
@@ -20,6 +22,8 @@ namespace Client.ViewModel
 			}
 		}
 		public Command<Window> AddPlannerCommand { get; set; }
+		public SnackbarMessageQueue MessageQueue { get; set; }
+
 		public Planner Planner
 		{
 			get => planner;
@@ -33,6 +37,7 @@ namespace Client.ViewModel
 		public AddPlannerViewModel()
 		{
 			AddPlannerCommand = new Command<Window>(OnAdd);
+			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
 		}
 
 		private void OnAdd(Window window)
@@ -42,6 +47,17 @@ namespace Client.ViewModel
 
 			if (!Planner.IsValid)
 			{
+				if(Planner.ValidationErrors["Name"] != "")
+				{
+					MessageQueue.Enqueue(Planner.ValidationErrors["Name"]);
+					Planner.ValidationErrors["Name"] = "*";
+				}
+				if (Planner.ValidationErrors["Description"] != "")
+				{
+					MessageQueue.Enqueue(Planner.ValidationErrors["Description"]);
+					Planner.ValidationErrors["Description"] = "*";
+				}
+				OnPropertyChanged("Planner");
 				return;
 			}
 

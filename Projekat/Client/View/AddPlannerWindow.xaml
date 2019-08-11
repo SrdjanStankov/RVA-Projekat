@@ -27,8 +27,8 @@
             <StackPanel Orientation="Horizontal">
                 <TextBox
                     Name="NameTB"
+                    Width="200"
                     MaxHeight="37"
-                    MinWidth="200" 
                     materialDesign:HintAssist.Hint="Name"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     Text="{Binding Name}" />
@@ -43,11 +43,11 @@
                 <TextBox
                     Name="DescTB"
                     Width="200"
-                    MaxHeight="60"
                     VerticalAlignment="Top"
                     materialDesign:HintAssist.Hint="Description"
                     AcceptsReturn="True"
                     AcceptsTab="True"
+                    MaxLines="5"
                     Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
                     Text="{Binding Description}"
                     TextWrapping="Wrap"
@@ -69,5 +69,8 @@
                 Content="Add planner"
                 IsDefault="True" />
         </StackPanel>
+        <DockPanel VerticalAlignment="Bottom">
+            <materialDesign:Snackbar MessageQueue="{Binding MessageQueue}" />
+        </DockPanel>
     </Grid>
 </Window>
