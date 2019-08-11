@@ -372,6 +372,8 @@
 
             </DataGrid>
         </Grid>
-
+        <DockPanel VerticalAlignment="Bottom">
+            <materialDesign:Snackbar MessageQueue="{Binding MessageQueue}" />
+        </DockPanel>
     </Grid>
 </UserControl>
