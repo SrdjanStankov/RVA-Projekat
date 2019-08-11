@@ -9,6 +9,7 @@ namespace Server
 
 		private static void Main(string[] args)
 		{
+			Console.Title = "RVA Projekat - Server";
 			server.Open();
 			Console.ReadKey(true);
 			server.Close();

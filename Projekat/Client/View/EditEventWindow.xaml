@@ -13,6 +13,7 @@
     FocusManager.FocusedElement="{Binding ElementName=NameTB}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterOwner"
+    WindowStyle="ToolWindow"
     mc:Ignorable="d">
 
     <Window.DataContext>

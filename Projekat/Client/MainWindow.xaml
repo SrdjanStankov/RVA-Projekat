@@ -6,13 +6,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:Client.ViewModel"
     xmlns:views="clr-namespace:Client.View"
-    Title="MainWindow"
+    Title="RVA Projekat - Client"
     Width="800"
     Height="450"
     Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
     ResizeMode="CanMinimize"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    WindowStyle="ToolWindow"
     mc:Ignorable="d">
 
     <Window.DataContext>
