@@ -47,7 +47,7 @@ namespace Client.ViewModel
 
 			if (!Planner.IsValid)
 			{
-				if(Planner.ValidationErrors["Name"] != "")
+				if (Planner.ValidationErrors["Name"] != "")
 				{
 					MessageQueue.Enqueue(Planner.ValidationErrors["Name"]);
 					Planner.ValidationErrors["Name"] = "*";
