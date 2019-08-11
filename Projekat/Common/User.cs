@@ -23,9 +23,7 @@ namespace Common
 			Password = password;
 		}
 
-		protected User()
-		{
-		}
+		protected User() { }
 
 		#region Properties
 
@@ -76,22 +74,22 @@ namespace Common
 		{
 			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name))
 			{
-				ValidationErrors["Name"] = "*";
+				ValidationErrors["Name"] = "Name is required";
 			}
 
 			if (string.IsNullOrWhiteSpace(lastname) || string.IsNullOrEmpty(lastname))
 			{
-				ValidationErrors["Lastname"] = "*";
+				ValidationErrors["Lastname"] = "Lastname is required";
 			}
 
 			if (string.IsNullOrWhiteSpace(username) || string.IsNullOrEmpty(username))
 			{
-				ValidationErrors["Username"] = "*";
+				ValidationErrors["Username"] = "Username is required";
 			}
 
 			if (string.IsNullOrWhiteSpace(password) || string.IsNullOrEmpty(password))
 			{
-				ValidationErrors["Password"] = "*";
+				ValidationErrors["Password"] = "Password is required";
 			}
 		}
 	}

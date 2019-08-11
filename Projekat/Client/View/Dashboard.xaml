@@ -63,5 +63,8 @@
                 IsDefault="True"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
         </StackPanel>
+        <DockPanel VerticalAlignment="Bottom">
+            <materialDesign:Snackbar MessageQueue="{Binding MessageQueue}" />
+        </DockPanel>
     </Grid>
 </UserControl>
