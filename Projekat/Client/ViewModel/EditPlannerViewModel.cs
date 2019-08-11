@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Common;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows;
 
@@ -21,6 +22,8 @@ namespace Client.ViewModel
 			}
 		}
 		public Command<Window> EditPlannerCommand { get; set; }
+		public SnackbarMessageQueue MessageQueue { get; set; }
+
 		public Planner Planner
 		{
 			get => planner;
@@ -40,6 +43,7 @@ namespace Client.ViewModel
 			oldPlanner = new Planner(Planner.Name, Planner.Description);
 			Name = Planner.Name;
 			Description = Planner.Description;
+			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
 		}
 
 		private void OnEdit(Window window)
@@ -50,6 +54,17 @@ namespace Client.ViewModel
 
 			if (!Planner.IsValid)
 			{
+				if (Planner.ValidationErrors["Name"] != "")
+				{
+					MessageQueue.Enqueue(Planner.ValidationErrors["Name"]);
+					Planner.ValidationErrors["Name"] = "*";
+				}
+				if (Planner.ValidationErrors["Description"] != "")
+				{
+					MessageQueue.Enqueue(Planner.ValidationErrors["Description"]);
+					Planner.ValidationErrors["Description"] = "*";
+				}
+				OnPropertyChanged("Planner");
 				return;
 			}
 
