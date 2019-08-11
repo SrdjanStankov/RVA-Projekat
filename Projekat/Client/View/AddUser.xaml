@@ -25,6 +25,7 @@
                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
                 <TextBlock
+                    MinWidth="5"
                     VerticalAlignment="Center"
                     Foreground="Red"
                     Text="{Binding User.ValidationErrors[Username]}" />
@@ -39,6 +40,7 @@
                     materialDesign:HintAssist.Hint="Password"
                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                 <TextBlock
+                    MinWidth="5"
                     VerticalAlignment="Center"
                     Foreground="Red"
                     Text="{Binding User.ValidationErrors[Password]}" />
@@ -55,6 +57,7 @@
                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
                 <TextBlock
+                    MinWidth="5"
                     VerticalAlignment="Center"
                     Foreground="Red"
                     Text="{Binding User.ValidationErrors[Name]}" />
@@ -71,12 +74,14 @@
                     Text="{Binding Lastname, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
                 <TextBlock
+                    MinWidth="5"
                     VerticalAlignment="Center"
                     Foreground="Red"
                     Text="{Binding User.ValidationErrors[Lastname]}" />
             </StackPanel>
             <TextBlock />
             <ComboBox
+                Width="259"
                 materialDesign:HintAssist.Hint="Type of user"
                 IsEditable="True"
                 IsReadOnly="True"
@@ -103,5 +108,8 @@
                 IsDefault="True"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
         </StackPanel>
+        <DockPanel VerticalAlignment="Bottom">
+            <materialDesign:Snackbar MessageQueue="{Binding MessageQueue}" />
+        </DockPanel>
     </Grid>
 </UserControl>

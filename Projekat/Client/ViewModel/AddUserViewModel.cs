@@ -1,5 +1,7 @@
 ﻿using Client.Model;
 using Common;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Linq;
 using System.Windows.Controls;
 
@@ -26,10 +28,12 @@ namespace Client.ViewModel
 		public string Name { get; set; }
 		public string Lastname { get; set; }
 		public string Password { get; set; }
+		public SnackbarMessageQueue MessageQueue { get; set; }
 
 		public AddUserViewModel()
 		{
 			CreateUserCommand = new Command<object>(OnCreate);
+			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
 		}
 
 		private void OnCreate(object obj)
@@ -56,9 +60,20 @@ namespace Client.ViewModel
 
 			if (!LoginViewModel.proxy.AddUser(User))
 			{
-				User.ValidationErrors["Username"] = "Username already exist.";
+				MessageQueue.Enqueue($"{Username} already exist!");
+				User.ValidationErrors["Username"] = "*";
 				OnPropertyChanged("User");
+				return;
 			}
+			MessageQueue.Enqueue($"Added user: {Username}");
+
+			User = null;
+			Name = Lastname = Username = Password = "";
+			(obj as PasswordBox).Password = "";
+			OnPropertyChanged("Name");
+			OnPropertyChanged("Lastname");
+			OnPropertyChanged("Username");
+			OnPropertyChanged("Password");
 		}
 	}
 }
