@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Common;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows;
 
@@ -25,6 +26,7 @@ namespace Client.ViewModel
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public Command<Window> EditEventCommand { get; set; }
+		public SnackbarMessageQueue MessageQueue { get; set; }
 
 		public EditEventViewModel()
 		{
@@ -34,6 +36,7 @@ namespace Client.ViewModel
 			oldEvent = new Event(Event.Name, Event.Description);
 			Name = Event.Name;
 			Description = Event.Description;
+			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
 		}
 
 		private void OnEdit(Window window)
@@ -44,6 +47,17 @@ namespace Client.ViewModel
 
 			if (!Event.IsValid)
 			{
+				if (Event.ValidationErrors["Name"] != "")
+				{
+					MessageQueue.Enqueue(Event.ValidationErrors["Name"]);
+					Event.ValidationErrors["Name"] = "*";
+				}
+				if (Event.ValidationErrors["Description"] != "")
+				{
+					MessageQueue.Enqueue(Event.ValidationErrors["Description"]);
+					Event.ValidationErrors["Description"] = "*";
+				}
+				OnPropertyChanged("Event");
 				return;
 			}
 
