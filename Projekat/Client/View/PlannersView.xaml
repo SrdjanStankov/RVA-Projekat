@@ -27,351 +27,311 @@
     </UserControl.InputBindings>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Height="60">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
-                <ColumnDefinition Width="400" />
-            </Grid.ColumnDefinitions>
-            <StackPanel
-                Grid.Row="0"
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <StackPanel>
-                    <TextBox
-                        Name="SearchTb"
-                        Width="220"
-                        Margin="100,0,0,0"
-                        VerticalContentAlignment="Center"
-                        materialDesign:HintAssist.Hint="Search"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        TextChanged="SearchTb_TextChanged"
-                        ToolTip="Name for search" />
-                </StackPanel>
-                <Button
-                    Name="SearchBtn"
-                    Width="70"
-                    Height="40"
-                    Command="{Binding SearchCommand}"
-                    CommandParameter="{Binding Text, ElementName=SearchTb}"
-                    Content="Search"
-                    Visibility="Collapsed" />
-            </StackPanel>
-            <StackPanel
-                Grid.Row="0"
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Button
-                    x:Name="AddBtn"
-                    Width="114"
-                    Margin="0,0,55,0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddPlannerCommand}"
-                    Content="Add planner"
-                    IsDefault="True" />
-            </StackPanel>
-        </Grid>
+                <Grid Grid.Row="0" Height="60">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400" />
+                        <ColumnDefinition Width="400" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBox
+                                Name="SearchTb"
+                                Width="220"
+                                Margin="100,0,0,0"
+                                VerticalContentAlignment="Center"
+                                materialDesign:HintAssist.Hint="Search"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                TextChanged="SearchTb_TextChanged"
+                                ToolTip="Name for search" />
+                        </StackPanel>
+                        <Button
+                            Name="SearchBtn"
+                            Width="70"
+                            Height="40"
+                            Command="{Binding SearchCommand}"
+                            CommandParameter="{Binding Text, ElementName=SearchTb}"
+                            Content="Search"
+                            Visibility="Collapsed" />
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            x:Name="AddBtn"
+                            Width="114"
+                            Margin="0,0,55,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Command="{Binding AddPlannerCommand}"
+                            Content="Add planner"
+                            IsDefault="True" />
+                    </StackPanel>
+                </Grid>
 
-        <Grid Grid.Row="1">
-            <DataGrid
-                x:Name="Grid1"
-                Width="auto"
-                Height="auto"
-                MaxHeight="295"
-                AutoGenerateColumns="False"
-                BorderThickness="0"
-                CanUserAddRows="False"
-                CanUserDeleteRows="False"
-                CanUserReorderColumns="False"
-                CanUserResizeColumns="False"
-                CanUserResizeRows="False"
-                CanUserSortColumns="False"
-                GridLinesVisibility="Horizontal"
-                IsReadOnly="True"
-                ItemsSource="{Binding PlannersToShow}"
-                RowHeaderWidth="0"
-                ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                SelectionMode="Single"
-                Style="{StaticResource MaterialDesignDataGrid}">
-                <DataGrid.Columns>
-
-                    <DataGridTextColumn
+                <Grid Grid.Row="1">
+                    <DataGrid
+                        x:Name="Grid1"
                         Width="auto"
-                        MinWidth="50"
-                        Binding="{Binding Id}"
-                        Header="Id">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="TextWrapping" Value="Wrap" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                        Height="auto"
+                        MaxHeight="295"
+                        AutoGenerateColumns="False"
+                        BorderThickness="0"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeColumns="False"
+                        CanUserResizeRows="False"
+                        CanUserSortColumns="False"
+                        GridLinesVisibility="Horizontal"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding PlannersToShow}"
+                        RowHeaderWidth="0"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        SelectionMode="Single"
+                        Style="{StaticResource MaterialDesignDataGrid}">
+                        <DataGrid.Columns>
 
-                    <DataGridTextColumn
-                        Width="auto"
-                        MinWidth="84"
-                        Binding="{Binding Name}"
-                        Header="Name">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="TextWrapping" Value="Wrap" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Width="auto"
+                                MinWidth="50"
+                                Binding="{Binding Id}"
+                                Header="Id">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                    <DataGridTextColumn
-                        Width="*"
-                        Binding="{Binding Description}"
-                        Header="Description">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="TextWrapping" Value="Wrap" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Width="auto"
+                                MinWidth="84"
+                                Binding="{Binding Name}"
+                                Header="Name">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Width="70">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button
-                                        Command="{Binding Path=DataContext.AddEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                        CommandParameter="{Binding Id}"
-                                        ToolTip="Add event">
-                                        <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarPlus" />
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding Description}"
+                                Header="Description">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Width="70">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button
-                                        Command="{Binding Path=DataContext.EditPlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                        CommandParameter="{Binding Id}"
-                                        ToolTip="Edit planner">
-                                        <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarEdit" />
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Width="70">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button
-                                        Command="{Binding Path=DataContext.DoublePlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                        CommandParameter="{Binding Id}"
-                                        ToolTip="Double planner">
-                                        <materialDesign:PackIcon Kind="CalendarMultiple" />
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Width="70">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button
-                                        Command="{Binding Path=DataContext.RemovePlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                        CommandParameter="{Binding Id}"
-                                        ToolTip="Remove planner">
-                                        <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarRemove" />
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                </DataGrid.Columns>
-
-                <DataGrid.RowDetailsTemplate>
-                    <DataTemplate>
-                        <DataGrid
-                            HorizontalAlignment="Center"
-                            AutoGenerateColumns="False"
-                            CanUserAddRows="False"
-                            CanUserDeleteRows="False"
-                            CanUserReorderColumns="False"
-                            CanUserResizeColumns="False"
-                            CanUserResizeRows="False"
-                            CanUserSortColumns="False"
-                            IsReadOnly="True"
-                            ItemsSource="{Binding Events}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn
-                                    MaxWidth="100"
-                                    Binding="{Binding Id}"
-                                    Header="Id">
-                                    <DataGridTextColumn.HeaderStyle>
-                                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
-                                            <Setter Property="VerticalAlignment" Value="Center" />
-                                        </Style>
-                                    </DataGridTextColumn.HeaderStyle>
-                                    <DataGridTextColumn.ElementStyle>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center" />
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
-                                            <Setter Property="TextWrapping" Value="Wrap" />
-                                        </Style>
-                                    </DataGridTextColumn.ElementStyle>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn
-                                    MaxWidth="240"
-                                    Binding="{Binding Name}"
-                                    Header="Name">
-                                    <DataGridTextColumn.HeaderStyle>
-                                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
-                                        </Style>
-                                    </DataGridTextColumn.HeaderStyle>
-                                    <DataGridTextColumn.ElementStyle>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center" />
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
-                                            <Setter Property="TextWrapping" Value="Wrap" />
-                                        </Style>
-                                    </DataGridTextColumn.ElementStyle>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn
-                                    MaxWidth="310"
-                                    Binding="{Binding Description}"
-                                    Header="Description">
-                                    <DataGridTextColumn.HeaderStyle>
-                                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
-                                        </Style>
-                                    </DataGridTextColumn.HeaderStyle>
-                                    <DataGridTextColumn.ElementStyle>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center" />
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
-                                            <Setter Property="TextWrapping" Value="Wrap" />
-                                        </Style>
-                                    </DataGridTextColumn.ElementStyle>
-                                </DataGridTextColumn>
-                                <DataGridTemplateColumn
-                                    Width="70"
-                                    MaxWidth="100"
-                                    Header="">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                            <DataGridTemplateColumn Width="70">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
                                             <Button
-                                                Command="{Binding Path=DataContext.EditEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Command="{Binding Path=DataContext.AddEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 CommandParameter="{Binding Id}"
-                                                ToolTip="Edit Event">
+                                                ToolTip="Add event">
+                                                <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarPlus" />
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="70">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Button
+                                                Command="{Binding Path=DataContext.EditPlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding Id}"
+                                                ToolTip="Edit planner">
                                                 <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarEdit" />
                                             </Button>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn
-                                    Width="70"
-                                    MaxWidth="100"
-                                    Header="">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="70">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
                                             <Button
-                                                Command="{Binding Path=DataContext.RemoveEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Command="{Binding Path=DataContext.DoublePlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 CommandParameter="{Binding Id}"
-                                                ToolTip="Remove Event">
+                                                ToolTip="Double planner">
+                                                <materialDesign:PackIcon Kind="CalendarMultiple" />
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="70">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Button
+                                                Command="{Binding Path=DataContext.RemovePlannerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding Id}"
+                                                ToolTip="Remove planner">
                                                 <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarRemove" />
                                             </Button>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                        <!--<ListView x:Name="List1" ItemsSource="{Binding Events}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
-                                        x:Name="EventId"
-                                        DisplayMemberBinding="{Binding Id}"
-                                        Header="Id" />
-                                    <GridViewColumn
-                                        x:Name="EventName"
-                                        DisplayMemberBinding="{Binding Name}"
-                                        Header="Name" />
-                                    <GridViewColumn
-                                        x:Name="EventDescription"
-                                        DisplayMemberBinding="{Binding Description}"
-                                        Header="Description" />
+                        </DataGrid.Columns>
 
-                                    <GridViewColumn Width="70" Header="">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Command="{Binding Path=DataContext.EditEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                    CommandParameter="{Binding Id}"
-                                                    ToolTip="Edit Event">
-                                                    <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarEdit" />
-                                                </Button>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <DataGrid
+                                    HorizontalAlignment="Center"
+                                    AutoGenerateColumns="False"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    CanUserReorderColumns="False"
+                                    CanUserResizeColumns="False"
+                                    CanUserResizeRows="False"
+                                    CanUserSortColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding Events}"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            MaxWidth="100"
+                                            Binding="{Binding Id}"
+                                            Header="Id">
+                                            <DataGridTextColumn.HeaderStyle>
+                                                <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                </Style>
+                                            </DataGridTextColumn.HeaderStyle>
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            MaxWidth="240"
+                                            Binding="{Binding Name}"
+                                            Header="Name">
+                                            <DataGridTextColumn.HeaderStyle>
+                                                <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                </Style>
+                                            </DataGridTextColumn.HeaderStyle>
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            MaxWidth="310"
+                                            Binding="{Binding Description}"
+                                            Header="Description">
+                                            <DataGridTextColumn.HeaderStyle>
+                                                <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                </Style>
+                                            </DataGridTextColumn.HeaderStyle>
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTemplateColumn
+                                            Width="70"
+                                            MaxWidth="100"
+                                            Header="">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding Path=DataContext.EditEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                        CommandParameter="{Binding Id}"
+                                                        ToolTip="Edit Event">
+                                                        <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarEdit" />
+                                                    </Button>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn
+                                            Width="70"
+                                            MaxWidth="100"
+                                            Header="">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding Path=DataContext.RemoveEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                        CommandParameter="{Binding Id}"
+                                                        ToolTip="Remove Event">
+                                                        <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarRemove" />
+                                                    </Button>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
 
-                                    <GridViewColumn Width="70" Header="">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Command="{Binding Path=DataContext.RemoveEventCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                    CommandParameter="{Binding Id}"
-                                                    ToolTip="Remove Event">
-                                                    <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="CalendarRemove" />
-                                                </Button>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
 
-                                </GridView>
-                            </ListView.View>
-                        </ListView>-->
-                    </DataTemplate>
-                </DataGrid.RowDetailsTemplate>
-
-            </DataGrid>
-        </Grid>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </StackPanel>
         <DockPanel VerticalAlignment="Bottom">
             <materialDesign:Snackbar MessageQueue="{Binding MessageQueue}" />
         </DockPanel>
