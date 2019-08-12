@@ -39,7 +39,7 @@ namespace Server
 		{
 			Planners.Add(planner);
 			SaveChanges();
-			log.Debug($"Added planner: {planner.Id}|{planner.Name}");
+			log.Info($"Added planner: {planner.Id}|{planner.Name}");
 		}
 
 		public Planner GetPlanner(int id)
@@ -47,7 +47,7 @@ namespace Server
 			var planner = Planners.AsNoTracking().Include(p => p.Events).Where(p => p.Id == id).FirstOrDefault();
 			if (planner is null)
 			{
-				log.Info($"Planner id={id} not found");
+				log.Debug($"Planner id={id} not found");
 			}
 			else
 			{
@@ -68,14 +68,14 @@ namespace Server
 			var oldPlanner = Planners.FirstOrDefault(p => p.Id == planner.Id);
 			Entry(oldPlanner).CurrentValues.SetValues(planner);
 			SaveChanges();
-			log.Debug($"Edited planner: {planner.Id}|{planner.Name}");
+			log.Info($"Edited planner: {planner.Id}|{planner.Name}");
 		}
 
 		public void RemovePlanner(int plannerId)
 		{
 			Planners.Remove(Planners.Include(p => p.Events).FirstOrDefault(p => p.Id == plannerId));
 			SaveChanges();
-			log.Debug($"Removed planner: id={plannerId}");
+			log.Info($"Removed planner: id={plannerId}");
 		}
 
 		#endregion
@@ -86,7 +86,7 @@ namespace Server
 		{
 			Users.Add(user);
 			SaveChanges();
-			log.Debug($"Added user {user.Username}|{user.Password}");
+			log.Info($"Added user: {user.Username}|{user.Password}");
 		}
 
 		public User GetUser(string username)
@@ -94,7 +94,7 @@ namespace Server
 			var user = Users.AsNoTracking().Where(u => u.Username == username).FirstOrDefault();
 			if (user is null)
 			{
-				log.Info($"User username={username} not found");
+				log.Debug($"User username={username} not found");
 			}
 			else
 			{
@@ -115,19 +115,21 @@ namespace Server
 			var oldUser = Users.FirstOrDefault(i => i.Username == newUser.Username);
 			Entry(oldUser).CurrentValues.SetValues(newUser);
 			SaveChanges();
-			log.Debug($"Edited user: {oldUser.Username}");
+			log.Info($"Edited user: {oldUser.Username}");
 		}
 
 		public void RemoveUser(User user)
 		{
 			Users.Remove(user);
 			SaveChanges();
-			log.Debug($"Removed user: username={user.Username}");
+			log.Info($"Removed user: username={user.Username}");
 		}
 
 		public bool ExistUser(string username)
 		{
-			return Users.AsNoTracking().FirstOrDefault(u => u.Username == username) == null ? false : true;
+			bool retval = Users.AsNoTracking().FirstOrDefault(u => u.Username == username) == null ? false : true;
+			log.Debug($"Checking existence of user: {username}");
+			return retval;
 		}
 
 		#endregion
@@ -139,7 +141,7 @@ namespace Server
 			Planners.FirstOrDefault(p => p.Id == plannerId).Events.Add(@event);
 			Events.Add(@event);
 			SaveChanges();
-			log.Debug($"Added event {@event.Id}|{@event.Name}");
+			log.Info($"Added event {@event.Id}|{@event.Name}");
 		}
 
 		public Event GetEvent(int id)
@@ -147,7 +149,7 @@ namespace Server
 			var @event = Events.AsNoTracking().FirstOrDefault(e => e.Id == id);
 			if (@event is null)
 			{
-				log.Info($"Event id={id} not found");
+				log.Debug($"Event id={id} not found");
 			}
 			else
 			{
@@ -168,14 +170,14 @@ namespace Server
 			var oldEvent = Events.FirstOrDefault(e => e.Id == @event.Id);
 			Entry(oldEvent).CurrentValues.SetValues(@event);
 			SaveChanges();
-			log.Debug($"Edited event: {oldEvent.Id}");
+			log.Info($"Edited event: {oldEvent.Id}");
 		}
 
 		public void RemoveEvent(int id)
 		{
 			Events.Remove(Events.FirstOrDefault(e => e.Id == id));
 			SaveChanges();
-			log.Debug($"Removed event: id={id}");
+			log.Info($"Removed event: id={id}");
 		}
 
 		#endregion
