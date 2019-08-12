@@ -69,6 +69,8 @@ namespace Client.ViewModel
 			}
 			MessageQueue.Enqueue($"Added user: {Username}");
 
+			LogManager.GetLogger(typeof(AddUserViewModel)).Info($"Added user: {User.Username}|{User.Password}");
+
 			User = null;
 			Name = Lastname = Username = Password = "";
 			(obj as PasswordBox).Password = "";
@@ -76,7 +78,6 @@ namespace Client.ViewModel
 			OnPropertyChanged(nameof(Lastname));
 			OnPropertyChanged(nameof(Username));
 			OnPropertyChanged(nameof(Password));
-			LogManager.GetLogger(typeof(AddUserViewModel)).Info($"Added user: {User.Username}|{User.Password}");
 		}
 	}
 }
