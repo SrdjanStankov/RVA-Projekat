@@ -69,7 +69,6 @@
     <Compile Include="Model\ConnectionCallback.cs" />
     <Compile Include="Model\Command.cs" />
     <Compile Include="Model\IMessage.cs" />
-    <Compile Include="Model\LoginUser.cs" />
     <Compile Include="Model\ChangingViewEvents.cs" />
     <Compile Include="Model\MessageHost.cs" />
     <Compile Include="ViewModel\AddEventViewModel.cs" />

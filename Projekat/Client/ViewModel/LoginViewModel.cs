@@ -13,24 +13,16 @@ namespace Client.ViewModel
 		public static IConnection proxy;
 		public static DuplexChannelFactory<IConnection> factory;
 
-		private LoginUser user;
-
 		public Command<object> LoginCommand { get; set; }
 		public SnackbarMessageQueue MessageQueue { get; set; }
 
-		public LoginUser User
-		{
-			get => user; set
-			{
-				user = value;
-				OnPropertyChanged("User");
-			}
-		}
+		public string Username { get; set; }
+		public string Password { get; set; }
+		public string UsernameError { get; set; }
+		public string PasswordError { get; set; }
 
 		public LoginViewModel()
 		{
-			User = new LoginUser();
-
 			LoginCommand = new Command<object>(OnLogin);
 			ChangingViewEvents.Instance.LogoutEvent += Logout;
 			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
@@ -44,19 +36,44 @@ namespace Client.ViewModel
 				factory.Close();
 				proxy = null;
 				factory = null;
-				User = new LoginUser();
 			}
 			catch (Exception) { }
 		}
 
 		private void OnLogin(object param)
 		{
-			User.Password = (param as System.Windows.Controls.PasswordBox).Password;
-			User.Validate();
-			if (!User.IsValid)
+			Password = (param as System.Windows.Controls.PasswordBox).Password;
+
+			#region Login validation
+
+			bool isUsernameValid = true;
+			bool isPasswordValid = true;
+			UsernameError = "";
+			PasswordError = "";
+
+			if (string.IsNullOrEmpty(Username) || string.IsNullOrWhiteSpace(Username))
+			{
+				isUsernameValid = false;
+				UsernameError = "*";
+				MessageQueue.Enqueue("Username invalid.");
+			}
+
+			if (string.IsNullOrEmpty(Password) || string.IsNullOrWhiteSpace(Password))
+			{
+				isPasswordValid = false;
+				PasswordError = "*";
+				MessageQueue.Enqueue("Password invalid.");
+			}
+
+			OnPropertyChanged("UsernameError");
+			OnPropertyChanged("PasswordError");
+
+			if (!isUsernameValid || !isPasswordValid)
 			{
 				return;
 			}
+
+			#endregion
 
 			var binding = new NetTcpBinding();
 			binding.Security.Mode = SecurityMode.TransportWithMessageCredential;
@@ -65,15 +82,15 @@ namespace Client.ViewModel
 			factory = new DuplexChannelFactory<IConnection>(MainWindowViewModel.connectionContext, binding, $"net.tcp://localhost:{11223}");
 			factory.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySubjectName, "localhost");
 			factory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
-			factory.Credentials.UserName.UserName = User.Username;
-			factory.Credentials.UserName.Password = User.Password;
+			factory.Credentials.UserName.UserName = Username;
+			factory.Credentials.UserName.Password = Password;
 
 			proxy = factory.CreateChannel();
 
 
 			try
 			{
-				proxy.Login(User.Username, User.Password);
+				proxy.Login(Username, Password);
 				ChangingViewEvents.Instance.RaiseUserLoginSuccessful();
 				ChangingViewEvents.Instance.RaiseDashboardEvent();
 				ChangingViewEvents.Instance.RaiseMenuEvent();
@@ -90,7 +107,6 @@ namespace Client.ViewModel
 					MessageBox.Show(e.Message);
 				}
 			}
-			OnPropertyChanged("User");
 		}
 	}
 }
