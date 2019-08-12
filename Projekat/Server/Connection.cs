@@ -1,4 +1,5 @@
 ﻿using Common;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -9,6 +10,7 @@ namespace Server
 	public class Connection : IConnection
 	{
 		private static Dictionary<string, IConnectionCallback> callbackList = new Dictionary<string, IConnectionCallback>();
+		private ILog log = LogManager.GetLogger(typeof(Connection));
 
 		public Connection()
 		{
@@ -24,6 +26,7 @@ namespace Server
 			}
 
 			Console.WriteLine($"Login: {userName}");
+			log.Info($"User {userName}|{password} logged in");
 		}
 
 		public void Change(string userName)
@@ -37,10 +40,7 @@ namespace Server
 			}
 
 			Console.WriteLine($"Change");
-
-			//callbackList.ForEach(
-			//	delegate (IConnectionCallback callback)
-			//	{ callback.NotifyChange(userName); });
+			log.Debug($"Notified all users for changes");
 		}
 
 		public void Logout(string userName)
@@ -51,11 +51,13 @@ namespace Server
 			}
 
 			Console.WriteLine($"Logout: {userName}");
+			log.Info($"User {userName} logged out");
 		}
 
 		public void ChangeUserData(User newUser)
 		{
 			Console.WriteLine($"Changing user data: {newUser.Username}");
+			log.Debug($"Editing user: {newUser.Username}");
 			using (var ctx = new ModelContext())
 			{
 				ctx.EditUser(newUser);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 
@@ -7,6 +8,7 @@ namespace Server
 	public class Server
 	{
 		private ServiceHost host;
+		private ILog log = LogManager.GetLogger(typeof(Server));
 
 		public Server(int port, Type serverType, Type interfaceType)
 		{
@@ -24,6 +26,7 @@ namespace Server
 
 			host.Credentials.UserNameAuthentication.UserNamePasswordValidationMode = System.ServiceModel.Security.UserNamePasswordValidationMode.Custom;
 			host.Credentials.UserNameAuthentication.CustomUserNamePasswordValidator = new ServiceAuthenticator();
+			log.Info("Server created");
 		}
 
 		public bool Open()
@@ -32,10 +35,12 @@ namespace Server
 			{
 				host.Open();
 				Console.WriteLine($"Server {host.Description.ServiceType.Name} opened...");
+				log.Info("Server opened");
 				return true;
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				log.Warn("Error opening the server", e);
 				return false;
 			}
 
@@ -47,10 +52,12 @@ namespace Server
 			{
 				host.Close();
 				Console.WriteLine($"Server {host.Description.ServiceType.Name} closed...");
+				log.Info("Server closed");
 				return true;
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				log.Warn("Error closing the server", e);
 				return false;
 			}
 		}
