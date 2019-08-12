@@ -228,6 +228,7 @@
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate>
                                 <DataGrid
+                                    MaxHeight="150"
                                     HorizontalAlignment="Center"
                                     AutoGenerateColumns="False"
                                     CanUserAddRows="False"

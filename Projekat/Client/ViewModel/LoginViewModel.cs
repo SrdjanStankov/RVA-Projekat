@@ -34,7 +34,7 @@ namespace Client.ViewModel
 			try
 			{
 				proxy.Logout(factory.Credentials.UserName.UserName);
-				LogManager.GetLogger(typeof(LoginViewModel)).Info($"Logout successful {factory.Credentials.UserName.UserName}|{factory.Credentials.UserName.Password}");
+				LogManager.GetLogger(typeof(LoginViewModel)).Info($"Logout successful {Username}");
 				factory.Close();
 				proxy = null;
 				factory = null;
