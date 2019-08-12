@@ -11,6 +11,7 @@ namespace Client.ViewModel
 		public Command LogoutCommand { get; set; }
 		public Command AddUserCommand { get; set; }
 		public Command PlannersCommand { get; set; }
+		public Command LogEventsCommand { get; set; }
 
 		public object IsAdmin
 		{
@@ -25,6 +26,7 @@ namespace Client.ViewModel
 			LogoutCommand = new Command(() => ChangingViewEvents.Instance.RaiseLogoutEvent());
 			AddUserCommand = new Command(() => ChangingViewEvents.Instance.RaiseAddUserEvent());
 			PlannersCommand = new Command(() => ChangingViewEvents.Instance.RaisePlannersEvent());
+			LogEventsCommand = new Command(() => ChangingViewEvents.Instance.RaiseLogtEvent());
 		}
 	}
 }

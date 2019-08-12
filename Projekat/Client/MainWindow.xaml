@@ -22,6 +22,10 @@
 
     <Window.Resources>
 
+        <DataTemplate DataType="{x:Type viewModel:LogViewModel}">
+            <views:LogView />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
             <views:Login />
         </DataTemplate>

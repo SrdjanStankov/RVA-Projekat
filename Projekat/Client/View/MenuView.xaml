@@ -57,6 +57,19 @@
                     </MenuItem.Style>
                 </MenuItem>
                 <MenuItem
+                    Command="{Binding LogEventsCommand}"
+                    Style="{StaticResource MaterialDesignMenuItem}"
+                    ToolTip="Logged events">
+                    <MenuItem.Header>
+                        <materialDesign:PackIcon
+                            Width="36"
+                            Height="36"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Kind="FileDocumentBoxOutline" />
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem
                     Command="{Binding LogoutCommand}"
                     Style="{StaticResource MaterialDesignMenuItem}"
                     ToolTip="Logout">
