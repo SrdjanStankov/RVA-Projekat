@@ -65,8 +65,8 @@ namespace Client.ViewModel
 				MessageQueue.Enqueue("Password invalid.");
 			}
 
-			OnPropertyChanged("UsernameError");
-			OnPropertyChanged("PasswordError");
+			OnPropertyChanged(nameof(UsernameError));
+			OnPropertyChanged(nameof(PasswordError));
 
 			if (!isUsernameValid || !isPasswordValid)
 			{

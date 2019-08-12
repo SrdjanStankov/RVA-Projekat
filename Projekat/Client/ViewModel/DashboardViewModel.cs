@@ -18,7 +18,7 @@ namespace Client.ViewModel
 			set
 			{
 				user = value;
-				OnPropertyChanged("User");
+				OnPropertyChanged(nameof(User));
 			}
 		}
 
@@ -33,7 +33,7 @@ namespace Client.ViewModel
 		{
 			string username = LoginViewModel.factory.Credentials.UserName.UserName;
 			User = LoginViewModel.proxy.GetUser(username);
-			OnPropertyChanged("User");
+			OnPropertyChanged(nameof(User));
 		}
 
 		private void OnSave()
@@ -41,17 +41,17 @@ namespace Client.ViewModel
 			User.Validate();
 			if (!User.IsValid)
 			{
-				if (User.ValidationErrors["Name"] != "")
+				if (string.IsNullOrEmpty(User.ValidationErrors["Name"]))
 				{
 					MessageQueue.Enqueue(User.ValidationErrors["Name"]);
 					User.ValidationErrors["Name"] = "*";
 				}
-				if (User.ValidationErrors["Lastname"] != "")
+				if (string.IsNullOrEmpty(User.ValidationErrors["Lastname"]))
 				{
 					MessageQueue.Enqueue(User.ValidationErrors["Lastname"]);
 					User.ValidationErrors["Lastname"] = "*";
 				}
-				OnPropertyChanged("User");
+				OnPropertyChanged(nameof(User));
 				return;
 			}
 

@@ -23,7 +23,7 @@ namespace Client.ViewModel
 			set
 			{
 				plannersToShow = value;
-				OnPropertyChanged("PlannersToShow");
+				OnPropertyChanged(nameof(PlannersToShow));
 			}
 		}
 
@@ -39,6 +39,7 @@ namespace Client.ViewModel
 		public Command RedoCommand { get; set; }
 		public SnackbarMessageQueue MessageQueue { get; set; }
 
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
 		public PlannersViewModel()
 		{
 			PlannersToShow = new ObservableCollection<Planner>();
@@ -291,7 +292,7 @@ namespace Client.ViewModel
 
 		private void OnSearch(string obj)
 		{
-			if (obj == "")
+			if (string.IsNullOrEmpty(obj))
 			{
 				PlannersToShow.Clear();
 				LoginViewModel.proxy.GetPlanners().ForEach(item => PlannersToShow.Add(item));

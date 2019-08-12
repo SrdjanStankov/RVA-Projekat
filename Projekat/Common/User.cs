@@ -33,7 +33,7 @@ namespace Common
 			get => name; set
 			{
 				name = value;
-				OnPropertyChanged("Name");
+				OnPropertyChanged(nameof(Name));
 			}
 		}
 
@@ -43,7 +43,7 @@ namespace Common
 			get => lastname; set
 			{
 				lastname = value;
-				OnPropertyChanged("Lastname");
+				OnPropertyChanged(nameof(Lastname));
 			}
 		}
 
@@ -54,7 +54,7 @@ namespace Common
 			get => username; set
 			{
 				username = value;
-				OnPropertyChanged("Username");
+				OnPropertyChanged(nameof(Username));
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace Common
 			get => password; set
 			{
 				password = value;
-				OnPropertyChanged("Password");
+				OnPropertyChanged(nameof(Password));
 			}
 		}
 
@@ -74,22 +74,22 @@ namespace Common
 		{
 			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name))
 			{
-				ValidationErrors["Name"] = "Name is required";
+				ValidationErrors[nameof(Name)] = "Name is required";
 			}
 
 			if (string.IsNullOrWhiteSpace(lastname) || string.IsNullOrEmpty(lastname))
 			{
-				ValidationErrors["Lastname"] = "Lastname is required";
+				ValidationErrors[nameof(Lastname)] = "Lastname is required";
 			}
 
 			if (string.IsNullOrWhiteSpace(username) || string.IsNullOrEmpty(username))
 			{
-				ValidationErrors["Username"] = "Username is required";
+				ValidationErrors[nameof(Username)] = "Username is required";
 			}
 
 			if (string.IsNullOrWhiteSpace(password) || string.IsNullOrEmpty(password))
 			{
-				ValidationErrors["Password"] = "Password is required";
+				ValidationErrors[nameof(Password)] = "Password is required";
 			}
 		}
 	}

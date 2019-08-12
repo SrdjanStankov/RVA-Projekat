@@ -20,7 +20,7 @@ namespace Client.ViewModel
 			get => @event; set
 			{
 				@event = value;
-				OnPropertyChanged("Event");
+				OnPropertyChanged(nameof(Event));
 			}
 		}
 
@@ -37,17 +37,17 @@ namespace Client.ViewModel
 
 			if (!Event.IsValid)
 			{
-				if (Event.ValidationErrors["Name"] != "")
+				if (string.IsNullOrEmpty(Event.ValidationErrors["Name"]))
 				{
 					MessageQueue.Enqueue(Event.ValidationErrors["Name"]);
 					Event.ValidationErrors["Name"] = "*";
 				}
-				if (Event.ValidationErrors["Description"] != "")
+				if (string.IsNullOrEmpty(Event.ValidationErrors["Description"]))
 				{
 					MessageQueue.Enqueue(Event.ValidationErrors["Description"]);
 					Event.ValidationErrors["Description"] = "*";
 				}
-				OnPropertyChanged("Event");
+				OnPropertyChanged(nameof(Event));
 				return;
 			}
 

@@ -18,7 +18,7 @@ namespace Client.ViewModel
 			set
 			{
 				description = value;
-				OnPropertyChanged("Description");
+				OnPropertyChanged(nameof(Description));
 			}
 		}
 		public Command<Window> EditPlannerCommand { get; set; }
@@ -30,7 +30,7 @@ namespace Client.ViewModel
 			set
 			{
 				planner = value;
-				OnPropertyChanged("Planner");
+				OnPropertyChanged(nameof(Planner));
 			}
 		}
 
@@ -54,17 +54,17 @@ namespace Client.ViewModel
 
 			if (!Planner.IsValid)
 			{
-				if (Planner.ValidationErrors["Name"] != "")
+				if (string.IsNullOrEmpty(Planner.ValidationErrors["Name"]))
 				{
 					MessageQueue.Enqueue(Planner.ValidationErrors["Name"]);
 					Planner.ValidationErrors["Name"] = "*";
 				}
-				if (Planner.ValidationErrors["Description"] != "")
+				if (string.IsNullOrEmpty(Planner.ValidationErrors["Description"]))
 				{
 					MessageQueue.Enqueue(Planner.ValidationErrors["Description"]);
 					Planner.ValidationErrors["Description"] = "*";
 				}
-				OnPropertyChanged("Planner");
+				OnPropertyChanged(nameof(Planner));
 				return;
 			}
 

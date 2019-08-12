@@ -47,6 +47,7 @@
     <Compile Include="Administrator.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IConnection.cs" />
     <Compile Include="IConnectionCallback.cs" />
     <Compile Include="Planner.cs" />

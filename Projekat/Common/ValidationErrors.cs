@@ -2,6 +2,7 @@
 
 namespace Common
 {
+	[System.Serializable]
 	public class ValidationErrors : BindableBase
 	{
 		private readonly Dictionary<string, string> validationsErrors = new Dictionary<string, string>();
@@ -31,7 +32,7 @@ namespace Common
 						validationsErrors.Add(fieldName, value);
 					}
 				}
-				OnPropertyChanged("IsValid");
+				OnPropertyChanged(nameof(IsValid));
 			}
 		}
 

@@ -27,8 +27,8 @@ namespace Common
 			ValidationErrors.Clear();
 			ValidateSelf();
 			IsValid = ValidationErrors.IsValid;
-			OnPropertyChanged("IsValid");
-			OnPropertyChanged("ValidationErrors");
+			OnPropertyChanged(nameof(IsValid));
+			OnPropertyChanged(nameof(ValidationErrors));
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace Client.ViewModel
 			set
 			{
 				user = value;
-				OnPropertyChanged("User");
+				OnPropertyChanged(nameof(User));
 			}
 		}
 
@@ -61,8 +61,8 @@ namespace Client.ViewModel
 			if (!LoginViewModel.proxy.AddUser(User))
 			{
 				MessageQueue.Enqueue($"{Username} already exist!");
-				User.ValidationErrors["Username"] = "*";
-				OnPropertyChanged("User");
+				User.ValidationErrors[nameof(Username)] = "*";
+				OnPropertyChanged(nameof(User));
 				return;
 			}
 			MessageQueue.Enqueue($"Added user: {Username}");
@@ -70,10 +70,10 @@ namespace Client.ViewModel
 			User = null;
 			Name = Lastname = Username = Password = "";
 			(obj as PasswordBox).Password = "";
-			OnPropertyChanged("Name");
-			OnPropertyChanged("Lastname");
-			OnPropertyChanged("Username");
-			OnPropertyChanged("Password");
+			OnPropertyChanged(nameof(Name));
+			OnPropertyChanged(nameof(Lastname));
+			OnPropertyChanged(nameof(Username));
+			OnPropertyChanged(nameof(Password));
 		}
 	}
 }

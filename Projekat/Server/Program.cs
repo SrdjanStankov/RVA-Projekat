@@ -9,7 +9,7 @@ namespace Server
 		private static Server server = new Server(11223, typeof(Connection), typeof(IConnection));
 		private static ILog log = LogManager.GetLogger(typeof(Program));
 
-		private static void Main(string[] args)
+		private static void Main()
 		{
 			log.Debug("Server program started");
 			Console.Title = "RVA Projekat - Server";

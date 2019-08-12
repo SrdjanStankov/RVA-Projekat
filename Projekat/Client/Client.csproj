@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\ConnectionCallback.cs" />
     <Compile Include="Model\Command.cs" />
     <Compile Include="Model\IMessage.cs" />
