@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 
 namespace Client.Model
@@ -15,10 +16,13 @@ namespace Client.Model
 		{
 			try
 			{
-				return messages.Dequeue();
+				object mess = messages.Dequeue();
+				LogManager.GetLogger(typeof(MessageHost)).Debug($"Message sent: {mess}");
+				return mess;
 			}
-			catch (Exception)
+			catch (InvalidOperationException e)
 			{
+				LogManager.GetLogger(typeof(MessageHost)).Error($"Invalid operation", e);
 				return null;
 			}
 		}
@@ -26,6 +30,7 @@ namespace Client.Model
 		public void SendMessage(object message)
 		{
 			messages.Enqueue(message);
+			LogManager.GetLogger(typeof(MessageHost)).Debug($"Message received");
 		}
 	}
 }

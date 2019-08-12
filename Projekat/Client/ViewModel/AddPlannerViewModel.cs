@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Common;
+using log4net;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows;
@@ -47,21 +48,22 @@ namespace Client.ViewModel
 
 			if (!Planner.IsValid)
 			{
-				if (string.IsNullOrEmpty(Planner.ValidationErrors["Name"]))
+				if (string.IsNullOrEmpty(Planner.ValidationErrors[nameof(Name)]))
 				{
-					MessageQueue.Enqueue(Planner.ValidationErrors["Name"]);
-					Planner.ValidationErrors["Name"] = "*";
+					MessageQueue.Enqueue(Planner.ValidationErrors[nameof(Name)]);
+					Planner.ValidationErrors[nameof(Name)] = "*";
 				}
-				if (string.IsNullOrEmpty(Planner.ValidationErrors["Description"]))
+				if (string.IsNullOrEmpty(Planner.ValidationErrors[nameof(Description)]))
 				{
-					MessageQueue.Enqueue(Planner.ValidationErrors["Description"]);
-					Planner.ValidationErrors["Description"] = "*";
+					MessageQueue.Enqueue(Planner.ValidationErrors[nameof(Description)]);
+					Planner.ValidationErrors[nameof(Description)] = "*";
 				}
 				OnPropertyChanged(nameof(Planner));
 				return;
 			}
 
 			LoginViewModel.proxy.AddPlanner(Planner, LoginViewModel.factory.Credentials.UserName.UserName);
+			LogManager.GetLogger(typeof(AddPlannerViewModel)).Info($"Added planner: id={Planner.Id}");
 			window.DialogResult = true;
 			window.Close();
 		}

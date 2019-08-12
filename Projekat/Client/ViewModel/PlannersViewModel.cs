@@ -1,6 +1,7 @@
 ﻿using Client.Model;
 using Client.View;
 using Common;
+using log4net;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,6 @@ namespace Client.ViewModel
 		{
 			PlannersToShow = new ObservableCollection<Planner>();
 
-			//LoginViewModel.proxy.GetPlanners().ForEach(item => PlannersToShow.Add(item));
 			ChangingViewEvents.Instance.PlannersEvent += (sender, e) => { plannersToShow.Clear(); LoginViewModel.proxy.GetPlanners().ForEach(item => PlannersToShow.Add(item)); };
 			ChangingViewEvents.Instance.DashboardEvent += (sender, e) => { undoStack.Clear(); redoStack.Clear(); };
 			ChangingViewEvents.Instance.LogoutEvent += (sender, e) => { undoStack.Clear(); redoStack.Clear(); };
@@ -92,6 +92,7 @@ namespace Client.ViewModel
 				default:
 					break;
 			}
+			LogManager.GetLogger(typeof(PlannersViewModel)).Debug($"Redo: {redo.Item1}|{redo.Item2}|{redo.Item3}");
 			MessageQueue.Enqueue("Redo successful");
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
@@ -155,6 +156,7 @@ namespace Client.ViewModel
 				default:
 					break;
 			}
+			LogManager.GetLogger(typeof(PlannersViewModel)).Debug($"Undo: {undo.Item1}|{undo.Item2}|{undo.Item3}");
 			MessageQueue.Enqueue("Undo successful");
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
@@ -182,6 +184,7 @@ namespace Client.ViewModel
 			undoStack.Push(new Tuple<string, object, object>("RemoveEvent", planId, e));
 
 			LoginViewModel.proxy.RemoveEvent(id, LoginViewModel.factory.Credentials.UserName.UserName);
+			LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Event removed: id={id}");
 			MessageQueue.Enqueue("Event removed");
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
@@ -192,6 +195,7 @@ namespace Client.ViewModel
 			undoStack.Push(new Tuple<string, object, object>("RemovePlanner", p, null));
 
 			LoginViewModel.proxy.RemovePlanner(id, LoginViewModel.factory.Credentials.UserName.UserName);
+			LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Planner removed: id={id}");
 			MessageQueue.Enqueue("Planner removed");
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
@@ -203,6 +207,7 @@ namespace Client.ViewModel
 			{
 				int pid = LoginViewModel.proxy.GetPlanners().Last().Id;
 				undoStack.Push(new Tuple<string, object, object>("AddPlanner", pid, null));
+				LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Planner added: id={pid}");
 				MessageQueue.Enqueue("Planner added");
 			}
 			ChangingViewEvents.Instance.RaisePlannersEvent();
@@ -233,10 +238,12 @@ namespace Client.ViewModel
 				{
 					int eid = LoginViewModel.proxy.GetEvents().LastOrDefault().Id;
 					undoStack.Push(new Tuple<string, object, object>("AddEvent", eid, null));
+					LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Event edited: id={eid}");
 				}
 				else if (response == "Edit")
 				{
 					undoStack.Push(new Tuple<string, object, object>("EditEvent", oldEvent, null));
+					LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Event edited: id={oldEvent.Id}");
 				}
 				MessageQueue.Enqueue("Event edited");
 			}
@@ -249,6 +256,7 @@ namespace Client.ViewModel
 			LoginViewModel.proxy.AddPlanner(plan, LoginViewModel.factory.Credentials.UserName.UserName);
 			int id = LoginViewModel.proxy.GetPlanners().Last().Id;
 			undoStack.Push(new Tuple<string, object, object>("AddPlanner", id, null));
+			LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Planner doubled: id={obj}");
 			MessageQueue.Enqueue("Planner doubled");
 			ChangingViewEvents.Instance.RaisePlannersEvent();
 		}
@@ -266,10 +274,12 @@ namespace Client.ViewModel
 				{
 					int pid = LoginViewModel.proxy.GetPlanners().Last().Id;
 					undoStack.Push(new Tuple<string, object, object>("AddPlanner", pid, null));
+					LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Planner edited: id={pid}");
 				}
 				else if (response == "Edit")
 				{
 					undoStack.Push(new Tuple<string, object, object>("EditPlanner", oldPlaner, null));
+					LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Planner edited: id={oldPlaner}");
 				}
 				MessageQueue.Enqueue("Planner edited");
 			}
@@ -285,6 +295,7 @@ namespace Client.ViewModel
 			{
 				int eid = LoginViewModel.proxy.GetEvents().LastOrDefault().Id;
 				undoStack.Push(new Tuple<string, object, object>("AddEvent", eid, null));
+				LogManager.GetLogger(typeof(PlannersViewModel)).Info($"Event added: id={eid}");
 				MessageQueue.Enqueue("Event added");
 			}
 			ChangingViewEvents.Instance.RaisePlannersEvent();

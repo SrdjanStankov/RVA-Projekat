@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Common;
+using log4net;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows;
@@ -47,15 +48,15 @@ namespace Client.ViewModel
 
 			if (!Event.IsValid)
 			{
-				if (string.IsNullOrEmpty(Event.ValidationErrors["Name"]))
+				if (string.IsNullOrEmpty(Event.ValidationErrors[nameof(Name)]))
 				{
-					MessageQueue.Enqueue(Event.ValidationErrors["Name"]);
-					Event.ValidationErrors["Name"] = "*";
+					MessageQueue.Enqueue(Event.ValidationErrors[nameof(Name)]);
+					Event.ValidationErrors[nameof(Name)] = "*";
 				}
-				if (string.IsNullOrEmpty(Event.ValidationErrors["Description"]))
+				if (string.IsNullOrEmpty(Event.ValidationErrors[nameof(Description)]))
 				{
-					MessageQueue.Enqueue(Event.ValidationErrors["Description"]);
-					Event.ValidationErrors["Description"] = "*";
+					MessageQueue.Enqueue(Event.ValidationErrors[nameof(Description)]);
+					Event.ValidationErrors[nameof(Description)] = "*";
 				}
 				OnPropertyChanged(nameof(Event));
 				return;
@@ -74,6 +75,7 @@ namespace Client.ViewModel
 				else
 				{
 					LoginViewModel.proxy.AddEvent(Event, plannerId, LoginViewModel.factory.Credentials.UserName.UserName);
+					LogManager.GetLogger(typeof(DashboardViewModel)).Info($"Added event: {Event.Id}");
 					window.DialogResult = true;
 					MessageHost.Instance.SendMessage("Add");
 					window.Close();
@@ -91,6 +93,7 @@ namespace Client.ViewModel
 			}
 
 			LoginViewModel.proxy.EditEvent(Event, LoginViewModel.factory.Credentials.UserName.UserName);
+			LogManager.GetLogger(typeof(DashboardViewModel)).Info($"Edited event: {Event.Id}");
 			window.DialogResult = true;
 			MessageHost.Instance.SendMessage("Edit");
 			window.Close();

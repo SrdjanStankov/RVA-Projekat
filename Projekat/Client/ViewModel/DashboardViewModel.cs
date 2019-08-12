@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Common;
+using log4net;
 using MaterialDesignThemes.Wpf;
 using System;
 
@@ -58,6 +59,7 @@ namespace Client.ViewModel
 			try
 			{
 				LoginViewModel.proxy.ChangeUserData(newUser: User);
+				LogManager.GetLogger(typeof(DashboardViewModel)).Info($"Changed data of user: {User.Username}");
 				MessageQueue.Enqueue("Changes saved.");
 			}
 			catch (Exception) { }

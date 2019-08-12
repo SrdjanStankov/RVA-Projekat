@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Common;
+using log4net;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Security.Cryptography.X509Certificates;
@@ -33,11 +34,15 @@ namespace Client.ViewModel
 			try
 			{
 				proxy.Logout(factory.Credentials.UserName.UserName);
+				LogManager.GetLogger(typeof(LoginViewModel)).Info($"Logout successful {factory.Credentials.UserName.UserName}|{factory.Credentials.UserName.Password}");
 				factory.Close();
 				proxy = null;
 				factory = null;
 			}
-			catch (Exception) { }
+			catch (Exception ee)
+			{
+				LogManager.GetLogger(typeof(LoginViewModel)).Fatal($"Error logging out.", ee);
+			}
 		}
 
 		private void OnLogin(object param)
@@ -86,13 +91,14 @@ namespace Client.ViewModel
 			factory.Credentials.UserName.Password = Password;
 
 			proxy = factory.CreateChannel();
-
+			LogManager.GetLogger(typeof(LoginViewModel)).Debug($"Created factory");
 
 			try
 			{
 				proxy.Login(Username, Password);
+				LogManager.GetLogger(typeof(LoginViewModel)).Info($"Login successful {Username}|{Password}");
 				ChangingViewEvents.Instance.RaiseUserLoginSuccessful();
-				ChangingViewEvents.Instance.RaiseDashboardEvent();
+				ChangingViewEvents.Instance.RaisePlannersEvent();
 				ChangingViewEvents.Instance.RaiseMenuEvent();
 			}
 			catch (Exception e)
@@ -100,11 +106,13 @@ namespace Client.ViewModel
 				if (e.InnerException != null)
 				{
 					MessageQueue.Enqueue($"{e.InnerException.Message}");
+					LogManager.GetLogger(typeof(LoginViewModel)).Info($"{e.InnerException.Message}");
 				}
 				else
 				{
 					MessageBox.Show(factory.State.ToString(), "State");
 					MessageBox.Show(e.Message);
+					LogManager.GetLogger(typeof(LoginViewModel)).Fatal($"Unrecognized error", e);
 				}
 			}
 		}

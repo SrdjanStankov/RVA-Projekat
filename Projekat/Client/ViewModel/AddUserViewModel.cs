@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Common;
+using log4net;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Linq;
@@ -60,6 +61,7 @@ namespace Client.ViewModel
 
 			if (!LoginViewModel.proxy.AddUser(User))
 			{
+				LogManager.GetLogger(typeof(AddUserViewModel)).Info($"Error adding user: {User.Username}");
 				MessageQueue.Enqueue($"{Username} already exist!");
 				User.ValidationErrors[nameof(Username)] = "*";
 				OnPropertyChanged(nameof(User));
@@ -74,6 +76,7 @@ namespace Client.ViewModel
 			OnPropertyChanged(nameof(Lastname));
 			OnPropertyChanged(nameof(Username));
 			OnPropertyChanged(nameof(Password));
+			LogManager.GetLogger(typeof(AddUserViewModel)).Info($"Added user: {User.Username}|{User.Password}");
 		}
 	}
 }
