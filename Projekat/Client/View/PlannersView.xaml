@@ -73,13 +73,19 @@
                         Orientation="Horizontal">
                         <Button
                             x:Name="AddBtn"
-                            Width="114"
-                            Margin="0,0,55,0"
+                            Margin="0,0,35,0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
                             Command="{Binding AddPlannerCommand}"
-                            Content="Add planner"
-                            IsDefault="True" />
+                            IsDefault="True"
+                            Style="{StaticResource MaterialDesignFloatingActionButton}"
+                            ToolTip="Add planner">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="Plus" />
+                        </Button>
                     </StackPanel>
                 </Grid>
 
