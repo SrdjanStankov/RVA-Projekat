@@ -11,10 +11,10 @@ namespace Server
 
 		private static void Main()
 		{
-			log.Debug("Server program started");
 			Console.Title = "RVA Projekat - Server";
+			log.Debug("Server program started");
 			server.Open();
-			Console.WriteLine("Doing some stuff...");
+			Console.WriteLine("Setting up server...");
 			using (var ctx = new ModelContext())
 			{
 				
