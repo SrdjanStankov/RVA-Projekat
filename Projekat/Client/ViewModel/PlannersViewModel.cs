@@ -66,6 +66,13 @@ namespace Client.ViewModel
 
 		private void OnRedo()
 		{
+			if (redoStack.Count <= 0)
+			{
+				LogManager.GetLogger(typeof(PlannersViewModel)).Debug($"Redo - but no action left");
+				MessageQueue.Enqueue("Redo not available");
+				return;
+			}
+
 			var redo = redoStack.Pop();
 
 			string userNameThatRequested = LoginViewModel.factory.Credentials.UserName.UserName;
@@ -99,6 +106,13 @@ namespace Client.ViewModel
 
 		private void OnUndo()
 		{
+			if (undoStack.Count <= 0)
+			{
+				LogManager.GetLogger(typeof(PlannersViewModel)).Debug($"Undo - but no action left");
+				MessageQueue.Enqueue("Undo not available");
+				return;
+			}
+
 			var undo = undoStack.Pop();
 
 			string userNameThatRequested = LoginViewModel.factory.Credentials.UserName.UserName;
